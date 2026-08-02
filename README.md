@@ -66,7 +66,7 @@ To point the contact form at a real endpoint in production, set the
 
 These are visual stand-ins, not wired-up functionality:
 
-- **The contact form does not submit anywhere.** `Contact.jsx` sets local state and swaps the button label to "Message Sent". Point `handleSubmit` at a real endpoint before shipping.
+- **The contact form has no endpoint configured.** `Contact.jsx` is fully wired — it validates and POSTs to `VITE_CONTACT_ENDPOINT` — but until that variable is set the form tells visitors their message was not sent. Set the repo secret to switch it on.
 - **Company logos** (uzum, click, PayMe) are lucide icons plus text, not real brand marks.
 - **Testimonials, FAQ copy, and pricing features** are from the design mockups — replace with real content.
 - All CTA links are in-page anchors (`#pricing`, `#contact`) rather than real routes.
