@@ -20,6 +20,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  /*
+    The logo used to be href="#", which jumps to the top without any scrolling
+    and leaves a bare "#" in the URL. href="#top" is the documented fragment for
+    "top of document" and keeps this working without JS; the handler takes over
+    when JS is available so the scroll animates (html has scroll-behavior:
+    smooth) and the URL is left clean.
+  */
+  const scrollToTop = (e) => {
+    e.preventDefault()
+    setOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
@@ -29,9 +42,18 @@ export default function Navbar() {
         scrolled ? 'bg-ink/80 backdrop-blur-lg border-b border-white/10 py-3' : 'bg-transparent py-5'
       }`}
     >
+      {/*
+        Every tap target below is padded out to >=44px and the padding is then
+        cancelled with an equal negative margin, so the nav row is still 40px
+        tall and the header keeps its 80px -> 64px scrolled transition.
+      */}
       <nav className="section-container flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 text-lg font-extrabold tracking-tight">
-          Repli A<span className="text-brand-500">I</span>
+        <a
+          href="#top"
+          onClick={scrollToTop}
+          className="-my-3 py-3 text-lg font-extrabold tracking-tight"
+        >
+          Aylo A<span className="text-brand-500">I</span>
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -39,7 +61,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-white/70 transition-colors hover:text-white"
+                className="-my-3.5 inline-block py-3.5 text-sm text-white/70 transition-colors hover:text-white"
               >
                 {link.label}
               </a>
@@ -48,14 +70,17 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-4 md:flex">
-          <a href="#contact" className="text-sm text-white/70 transition-colors hover:text-white">
+          <a
+            href="#contact"
+            className="-my-3.5 py-3.5 text-sm text-white/70 transition-colors hover:text-white"
+          >
             Sign in
           </a>
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.96 }}
             href="#pricing"
-            className="flex items-center gap-1.5 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
+            className="-my-0.5 flex min-h-[44px] items-center gap-1.5 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
           >
             <Sparkles size={14} />
             Get Started
@@ -64,7 +89,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen((o) => !o)}
-          className="text-white md:hidden"
+          className="-m-2.5 p-2.5 text-white md:hidden"
           aria-label="Toggle menu"
         >
           {open ? <X size={26} /> : <Menu size={26} />}
@@ -85,7 +110,7 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block text-white/80"
+                    className="-my-2.5 block py-2.5 text-white/80"
                   >
                     {link.label}
                   </a>
@@ -95,7 +120,7 @@ export default function Navbar() {
                 <a
                   href="#pricing"
                   onClick={() => setOpen(false)}
-                  className="mt-2 inline-block rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold"
+                  className="mt-1.5 -mb-0.5 inline-flex min-h-[44px] items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold"
                 >
                   Get Started
                 </a>

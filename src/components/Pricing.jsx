@@ -85,7 +85,7 @@ export default function Pricing() {
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-4 py-1 text-xs font-bold text-white shadow-md">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-500 px-4 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md">
                   MOST POPULAR PLAN
                 </span>
               )}

@@ -5,7 +5,7 @@ const points = ['Secure data sharing', 'According to the rules', 'Official Integ
 
 export default function MetaVerified() {
   return (
-    <section className="relative overflow-hidden bg-[#0d0d11] py-24">
+    <section id="meta-verified" className="relative overflow-hidden bg-[#0d0d11] py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_100%_at_80%_50%,rgba(220,38,38,0.35),transparent_65%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_10%_20%,rgba(255,92,26,0.15),transparent_60%)]" />
 
@@ -31,7 +31,7 @@ export default function MetaVerified() {
         >
           <h2 className="text-3xl font-extrabold sm:text-4xl">Verified by Meta</h2>
           <p className="mt-4 max-w-lg text-white/60">
-            Repli AI is officially approved by Meta and provides reliable and secure integration
+            Aylo AI is officially approved by Meta and provides reliable and secure integration
             with Facebook and Instagram platforms. This confirmation indicates that we maintain a
             high level of safety and compliance standards.
           </p>

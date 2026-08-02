@@ -19,7 +19,7 @@ export default function Integrations() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl font-extrabold sm:text-4xl">Seamless Social Media Connections</h2>
-          <p className="mt-3 text-ink/60">Repli AI integrates with the platforms your customers already use</p>
+          <p className="mt-3 text-ink/60">Aylo AI integrates with the platforms your customers already use</p>
         </motion.div>
 
         <div className="mt-14 flex flex-wrap justify-center gap-10 sm:gap-16">

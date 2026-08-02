@@ -4,7 +4,7 @@ import { Plus, Minus } from 'lucide-react'
 
 const faqs = [
   {
-    q: 'How to use Repli?',
+    q: 'How to use Aylo?',
     a: 'Sign up for a free account, connect your social media channels, and use our no-code builder to design your AI agent. Once configured, launch it and it will start engaging with your customers automatically across every connected channel.',
   },
   {

@@ -48,7 +48,7 @@ export default function Features() {
           transition={{ duration: 0.6 }}
           className="mx-auto mb-16 max-w-2xl text-center"
         >
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Why Choose Repli AI</h2>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Why Choose Aylo AI</h2>
           <p className="mt-3 text-white/60">
             Everything you need to automate customer engagement and boost sales
           </p>
@@ -71,11 +71,20 @@ export default function Features() {
               </div>
               <h3 className="text-lg font-bold">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink/60">{f.desc}</p>
+              {/*
+                There is no per-feature detail page in this project, so this used
+                to be a `href="#"` that jumped to the top of the page. It now
+                points at the "How It Works" section — the only place that
+                expands on what the features actually do — and the label says so.
+                `py-3.5` grows the tap target to 48px; `mt-0.5 / -mb-3.5`
+                cancel the added padding out of the layout so the card is
+                pixel-identical.
+              */}
               <a
-                href="#"
-                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 transition-all group-hover:gap-2"
+                href="#how-it-works"
+                className="mt-0.5 -mb-3.5 inline-flex items-center gap-1 py-3.5 text-sm font-semibold text-brand-600 transition-all group-hover:gap-2"
               >
-                Learn More <ArrowRight size={14} />
+                See how it works <ArrowRight size={14} />
               </a>
             </motion.div>
           ))}

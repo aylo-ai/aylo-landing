@@ -27,7 +27,7 @@ export default function Hero() {
           className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70"
         >
           <Sparkles size={14} className="text-brand-400" />
-          100+ companies already automating sales with Repli AI
+          100+ companies already automating sales with Aylo AI
         </motion.div>
 
         <motion.h1
@@ -47,7 +47,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mx-auto mt-6 max-w-xl text-base text-white/60 sm:text-lg"
         >
-          Repli AI lets you create powerful AI agents to engage with your customers 24/7 on social
+          Aylo AI lets you create powerful AI agents to engage with your customers 24/7 on social
           media. Boost sales, automate conversations, and grow your business effortlessly.
         </motion.p>
 

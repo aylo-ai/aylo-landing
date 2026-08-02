@@ -2,12 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Mirrors tailwind.config.js: brand-500 / ink */
+  --focus-ring: #ff5c1a;
+  --focus-ring-halo: rgba(13, 13, 17, 0.85);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   @apply bg-ink text-white font-sans antialiased;
+}
+
+/*
+  Keyboard focus indicator.
+  The page alternates between the near-black `ink` background and white
+  sections, so the ring is two-tone: a brand-orange outline sitting on a
+  dark halo. On dark sections the halo disappears and the orange carries
+  the contrast (6.3:1 against #0d0d11); on white sections the halo draws a
+  dark separator behind the orange so the ring never washes out.
+*/
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--focus-ring-halo);
+}
+
+/* Mouse / touch activation must not paint the ring. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Text fields sit flush in their containers — pull the ring in slightly. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-offset: 1px;
+  box-shadow: 0 0 0 4px var(--focus-ring-halo);
 }
 
 ::selection {

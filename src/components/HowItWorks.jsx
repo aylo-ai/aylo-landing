@@ -35,23 +35,14 @@ export default function HowItWorks() {
         </motion.div>
 
         <div className="relative mx-auto grid max-w-4xl grid-cols-1 gap-y-14 sm:grid-cols-3">
-          <div className="absolute left-[16.5%] right-[16.5%] top-6 hidden h-px sm:block">
-            <svg width="100%" height="2" className="overflow-visible">
-              <motion.line
-                x1="0"
-                y1="1"
-                x2="100%"
-                y2="1"
-                stroke="#ff5c1a"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: 'easeInOut' }}
-              />
-            </svg>
-          </div>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            style={{ originX: 0 }}
+            className="absolute left-[16.5%] right-[16.5%] top-6 hidden border-t-2 border-dashed border-brand-500/70 sm:block"
+          />
 
           {steps.map((step, i) => (
             <motion.div

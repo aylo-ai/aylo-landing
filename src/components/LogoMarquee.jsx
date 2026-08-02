@@ -16,7 +16,7 @@ export default function LogoMarquee() {
   return (
     <section className="relative border-y border-white/5 bg-ink py-10">
       <p className="mb-6 text-center text-sm text-white/40">
-        100+ Companies already using Repli AI
+        100+ Companies already using Aylo AI
       </p>
       <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <motion.div

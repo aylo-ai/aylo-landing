@@ -1,0 +1,47 @@
+name: Deploy landing
+
+# Runs on the self-hosted runner that lives on the same box as nginx
+# (143.198.112.70), so "deploy" is just writing the built assets into the
+# webroot that the aylo.uz vhost already serves. No SSH step is needed.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Two deploys writing the same webroot would interleave files from different
+# builds, so let a running deploy finish before the next one starts.
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    env:
+      WEBROOT: /var/www/aylo-landing
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # node is not installed on the host; building inside the official image
+      # keeps the toolchain pinned and the server clean. Running as the runner
+      # user avoids leaving root-owned files in the workspace.
+      - name: Build
+        env:
+          VITE_CONTACT_ENDPOINT: ${{ secrets.VITE_CONTACT_ENDPOINT }}
+        run: |
+          docker run --rm \
+            -v "$PWD":/app -w /app \
+            -u "$(id -u):$(id -g)" \
+            -e HOME=/tmp \
+            -e VITE_CONTACT_ENDPOINT \
+            node:20-alpine \
+            sh -c 'npm ci && npm run build'
+
+      - name: Publish to webroot
+        run: |
+          test -s dist/index.html
+          rsync -a --delete dist/ "$WEBROOT/"
+
+      - name: Smoke test
+        run: curl -fsS -o /dev/null -w 'https://aylo.uz -> %{http_code}\n' https://aylo.uz/
