@@ -21,7 +21,7 @@ jobs:
       WEBROOT: /var/www/aylo-landing
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # node is not installed on the host; building inside the official image
       # keeps the toolchain pinned and the server clean. Running as the runner
