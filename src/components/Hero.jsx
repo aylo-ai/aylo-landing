@@ -4,7 +4,21 @@ import DashboardMockup from './DashboardMockup'
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pb-24 pt-40 sm:pt-48">
+    <section
+      className="relative overflow-hidden pb-24 pt-0"
+      style={{ marginTop: 'clamp(-310px, -42vw, -180px)' }}
+    >
+      {/*
+        The negative margin-top above pulls this section up so the
+        badge+headline start inside NeonFaceHero's fade zone (now the
+        bottom 60% of the phone, masked to transparent past 40%) instead of
+        leaving dead space below the phone. Sized off the same
+        clamp(200px, 46vw, 340px) width NeonFaceHero uses for the phone:
+        phone height ≈ width * 18.5/9, and this overlaps ~45% of that
+        height, landing within/just below the fade rather than on its
+        still-opaque top. If NeonFaceHero's phone width formula or fade
+        start (currently 40%) changes, update this to match.
+      */}
       <div className="pointer-events-none absolute inset-0 bg-grid-pattern bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)]" />
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[600px] w-[900px] -translate-x-1/2 bg-radial-fade" />
 

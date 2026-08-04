@@ -1,6 +1,7 @@
 import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import NeonFaceHero from './components/NeonFaceHero'
 import LogoMarquee from './components/LogoMarquee'
 import Features from './components/Features'
 import HowItWorks from './components/HowItWorks'
@@ -26,6 +27,7 @@ function App() {
     <MotionConfig reducedMotion="user">
       <div className="relative overflow-x-hidden bg-ink">
         <Navbar />
+        <NeonFaceHero />
         <Hero />
         <LogoMarquee />
         <Features />
