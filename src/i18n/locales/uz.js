@@ -34,6 +34,7 @@ export default {
       'Aylo AI yordamida ijtimoiy tarmoqlarda mijozlaringiz bilan 24/7 muloqot qiladigan kuchli AI agentlar yaratasiz. Savdoni oshiring, suhbatlarni avtomatlashtiring va biznesingizni osongina rivojlantiring.',
     ctaPrimary: 'Agent yaratish',
     ctaSecondary: 'Qanday ishlaydi',
+    freeNote: 'Bepul boshlang — oyiga 100 suhbat, karta talab qilinmaydi.',
   },
 
   logos: { label: 'Mijozlaringiz allaqachon foydalanadigan joyda ishlaydi' },
@@ -263,12 +264,24 @@ export default {
         a: 'Bepul akkaunt ochib, ijtimoiy tarmoq kanallaringizni ulang va kod yozishni talab qilmaydigan konstruktorimizda AI agentingizni loyihalang. Sozlab bo\'lgach, uni ishga tushiring — u ulangan barcha kanallarda mijozlar bilan avtomatik muloqot qilishni boshlaydi.',
       },
       {
-        q: 'Tarifni qanday o\'zgartiraman?',
-        a: 'Akkaunt sozlamalariga o\'tib, "Billing" bo\'limini oching. U yerdan tarifni istalgan vaqtda yuqoriga yoki pastga o\'zgartirishingiz mumkin — o\'zgarish darhol kuchga kiradi, to\'lov esa foydalanilgan muddatga mos qayta hisoblanadi.',
+        q: 'Suhbat deb nima hisoblanadi?',
+        a: 'Suhbat — bir mijozning agent bilan bir muloqoti: uning ichida qancha xabar yozilsa ham, bu bitta suhbat sanaladi. 24 soat harakatsizlikdan keyin suhbat yopiladi, shuning uchun o\'sha mijoz keyingi hafta yana yozsa, bu yangi suhbat bo\'ladi. To\'lov xabarlar soni yoki xodimlar soni uchun emas, agent hal qilgan suhbatlar uchun olinadi.',
       },
       {
-        q: 'Obunani qanday bekor qilaman?',
-        a: 'Boshqaruv panelidagi "Billing" bo\'limiga o\'tib, "Obunani bekor qilish"ni tanlang. Tarifingiz joriy hisob-kitob davri oxirigacha amal qiladi, undan keyin qo\'shimcha to\'lov olinmaydi.',
+        q: 'Limitdan oshib ketsam nima bo\'ladi?',
+        a: 'Agent javob berishni to\'xtatmaydi — suhbat o\'rtasida uzilmaydi va sizni o\'z ixtiyorimiz bilan qimmatroq tarifga o\'tkazmaymiz. Limitdan oshganingizni ko\'rasiz va biz hajmingizga mos tarifni taklif qilamiz; o\'tish yoki o\'tmaslik — sizning qaroringiz.',
+      },
+      {
+        q: 'Bepul tarif haqiqatan bepulmi?',
+        a: 'Ha: oyiga 100 suhbat, 1 ta kanal, karta talab qilinmaydi. Bu muddati cheklangan sinov emas, balki alohida tarif — 100 suhbat ichida qolsangiz, unda davom etishingiz mumkin. Ko\'proq hajm yoki ko\'proq kanal kerak bo\'lganda, pullik tarifni o\'zingiz tanlaysiz.',
+      },
+      {
+        q: 'Tarifni o\'zgartirsam yoki obunani bekor qilsam bo\'ladimi?',
+        a: 'Ikkisi ham, istalgan vaqtda — akkauntingizdagi "Billing" bo\'limidan. Tarifni yuqoriga yoki pastga o\'zgartirish darhol kuchga kiradi, to\'lov esa foydalanilgan muddatga mos qayta hisoblanadi. Bekor qilsangiz, tarif siz to\'lab qo\'ygan davr oxirigacha amal qiladi, undan keyin qo\'shimcha to\'lov olinmaydi.',
+      },
+      {
+        q: 'Yillik narx nimani bildiradi, QQS kiradimi?',
+        a: 'Yillik to\'lovda oylik narxdan 20% chegirma bo\'ladi va to\'lov bir yilga bir yo\'la amalga oshiriladi — kartochkadagi raqam shu shartdagi oylik narxni ko\'rsatadi. Barcha narxlar so\'mda va QQS hisobga olinmagan.',
       },
       {
         q: 'Loyihani qanday yarataman?',

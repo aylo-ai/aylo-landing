@@ -32,6 +32,7 @@ export default {
       'Aylo AI lets you create powerful AI agents to engage with your customers 24/7 on social media. Boost sales, automate conversations, and grow your business effortlessly.',
     ctaPrimary: 'Create an Agent',
     ctaSecondary: 'See How it Works',
+    freeNote: 'Start free — 100 conversations a month, no card required.',
   },
 
   logos: { label: 'Works where your customers already are' },
@@ -261,12 +262,24 @@ export default {
         a: 'Sign up for a free account, connect your social media channels, and use our no-code builder to design your AI agent. Once configured, launch it and it will start engaging with your customers automatically across every connected channel.',
       },
       {
-        q: 'How to change subscription?',
-        a: 'Head to your account settings and open the Billing tab. From there you can upgrade, downgrade, or switch your plan at any time — changes apply immediately and billing is prorated.',
+        q: 'What counts as a conversation?',
+        a: 'A conversation is one customer talking to your agent — however many messages they exchange inside it, it counts as one. It closes after 24 hours without activity, so if the same customer writes again next week, that is a new conversation. You pay for the conversations your agent handles, not for messages and not for seats.',
       },
       {
-        q: 'How to cancel Subscription?',
-        a: 'Go to Billing in your dashboard and select "Cancel Subscription". Your plan will remain active until the end of the current billing cycle, with no further charges after that.',
+        q: 'What happens if I go over my allowance?',
+        a: 'Your agent keeps replying — we do not cut it off in the middle of a conversation, and we do not move you to a more expensive tier on our own. You will see that you have passed the limit and we will suggest the tier that matches your volume; switching is your decision.',
+      },
+      {
+        q: 'Is the Free plan really free?',
+        a: 'Yes: 100 conversations a month, one channel, no card required. It is a plan, not a time-limited trial — if you stay within 100 conversations you can stay on it. When you need more volume or more channels, you pick a paid tier yourself.',
+      },
+      {
+        q: 'Can I change tier or cancel?',
+        a: 'Both, at any time, from the Billing tab in your account. Upgrades and downgrades take effect immediately and billing is prorated. If you cancel, your plan stays active until the end of the period you have already paid for, with no further charges after that.',
+      },
+      {
+        q: 'What does the annual price mean, and is VAT included?',
+        a: 'Annual billing takes 20% off the monthly price and is paid a year at a time — the figure on the card is the effective monthly cost under that commitment. All prices are in som and exclude VAT.',
       },
       {
         q: 'How to create Project?',

@@ -124,6 +124,15 @@ seats. What is *not* verified is unit economics: whether 199,000 UZS for 500
 conversations clears inference cost depends on the model and average turns per
 conversation. Check the margin before launch.
 
+The four tier prices are duplicated in one other place: the `application/ld+json`
+block in `index.html`, which publishes them as schema.org `Offer`s in UZS for
+search engines. Change a price in the locales and you must change it there too.
+That block deliberately carries no `aggregateRating` or `review` — there are no
+real reviews yet, and inventing them would be feeding fabricated data to search
+engines. `public/robots.txt` and `public/sitemap.xml` are static and copied to
+the webroot by the build; the sitemap lists the single `https://aylo.uz/` URL
+because the language lives in `localStorage`, not in the URL.
+
 `LogoMarquee` used to show Uzum, Click and PayMe marks under "100+ companies
 already using Aylo AI". Those are real Uzbek payment companies and none is a
 customer, so the marks were removed — a live page naming real third parties as
