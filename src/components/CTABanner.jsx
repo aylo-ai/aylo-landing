@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Rocket, Bot } from 'lucide-react'
+import Button from './ui/Button'
 
 export default function CTABanner() {
   return (
@@ -36,15 +37,14 @@ export default function CTABanner() {
           through quick responses.
         </p>
 
-        <motion.a
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
+        <Button
           href="#pricing"
-          className="relative mt-8 inline-flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/40 transition-colors hover:bg-brand-400"
+          icon={Rocket}
+          shadow="lg"
+          className="relative mt-8"
         >
-          <Rocket size={16} />
           Create a Agent
-        </motion.a>
+        </Button>
       </motion.div>
     </section>
   )

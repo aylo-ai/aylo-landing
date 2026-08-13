@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import SectionHeading from './ui/SectionHeading'
 import { Instagram, Facebook, Globe, Send } from 'lucide-react'
 
 const channels = [
@@ -12,15 +13,14 @@ export default function Integrations() {
   return (
     <section className="bg-white py-24 text-ink">
       <div className="section-container text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Seamless Social Media Connections</h2>
-          <p className="mt-3 text-ink/60">Aylo AI integrates with the platforms your customers already use</p>
-        </motion.div>
+        {/* className="" — this section centers from the parent's `text-center`
+            and lets the heading run full width, so no wrapper classes. */}
+        <SectionHeading
+          title="Seamless Social Media Connections"
+          subtitle="Aylo AI integrates with the platforms your customers already use"
+          tone="light"
+          className=""
+        />
 
         <div className="mt-14 flex flex-wrap justify-center gap-10 sm:gap-16">
           {channels.map((c, i) => (

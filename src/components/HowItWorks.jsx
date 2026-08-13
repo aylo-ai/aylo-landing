@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { Rocket } from 'lucide-react'
+import SectionHeading from './ui/SectionHeading'
+import Button from './ui/Button'
 
 const steps = [
   {
@@ -23,16 +25,11 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-white py-28 text-ink">
       <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto mb-16 max-w-2xl text-center"
-        >
-          <h2 className="text-3xl font-extrabold sm:text-4xl">How It Works</h2>
-          <p className="mt-3 text-ink/60">Get started in three simple steps</p>
-        </motion.div>
+        <SectionHeading
+          title="How It Works"
+          subtitle="Get started in three simple steps"
+          tone="light"
+        />
 
         <div className="relative mx-auto grid max-w-4xl grid-cols-1 gap-y-14 sm:grid-cols-3">
           <motion.div
@@ -72,15 +69,9 @@ export default function HowItWorks() {
           transition={{ delay: 0.4 }}
           className="mt-14 flex justify-center"
         >
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            href="#pricing"
-            className="flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
-          >
-            <Rocket size={16} />
+          <Button href="#pricing" icon={Rocket}>
             Create a Agent
-          </motion.a>
+          </Button>
         </motion.div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
+import SectionHeading from './ui/SectionHeading'
 
 /*
  * ============================================================================
@@ -55,18 +56,13 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="bg-[#f7f7f8] py-28 text-ink">
       <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto mb-16 max-w-2xl text-center"
-        >
-          <h2 className="text-3xl font-extrabold sm:text-4xl">What Our Customers Say</h2>
-          {/* TODO(pre-launch): "thousands of businesses" is an unsubstantiated claim for an
-              unlaunched product. Marketing/legal should confirm or reword before launch. */}
-          <p className="mt-3 text-ink/60">Join thousands of businesses growing with Aylo AI</p>
-        </motion.div>
+        {/* TODO(pre-launch): "thousands of businesses" is an unsubstantiated claim for an
+            unlaunched product. Marketing/legal should confirm or reword before launch. */}
+        <SectionHeading
+          title="What Our Customers Say"
+          subtitle="Join thousands of businesses growing with Aylo AI"
+          tone="light"
+        />
 
         <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {testimonials.map((t, i) => (
