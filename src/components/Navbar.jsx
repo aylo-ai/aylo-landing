@@ -10,6 +10,16 @@ const links = [
   { label: 'Contact', href: '#contact' },
 ]
 
+/*
+  Auth lives in the separate app on app.aylo.uz, not on this marketing page.
+  These are the app's real routes — `/` there redirects to `/sign-in`, and
+  both paths below serve the actual forms ("Sign in · Aylo AI" /
+  "Sign up · Aylo AI"). "Sign in" used to point at `#contact` and "Get
+  Started" at `#pricing`, so neither actually let a visitor into the product.
+*/
+const SIGN_IN_URL = 'https://app.aylo.uz/sign-in'
+const SIGN_UP_URL = 'https://app.aylo.uz/sign-up'
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -71,7 +81,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-4 md:flex">
           <a
-            href="#contact"
+            href={SIGN_IN_URL}
             className="-my-3.5 py-3.5 text-sm text-white/70 transition-colors hover:text-white"
           >
             Sign in
@@ -79,7 +89,7 @@ export default function Navbar() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.96 }}
-            href="#pricing"
+            href={SIGN_UP_URL}
             className="-my-0.5 flex min-h-[44px] items-center gap-1.5 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
           >
             <Sparkles size={14} />
@@ -116,9 +126,20 @@ export default function Navbar() {
                   </a>
                 </li>
               ))}
+              {/* The mobile menu had no way to sign in at all — only "Get
+                  Started" — so returning users were stuck on small screens. */}
               <li>
                 <a
-                  href="#pricing"
+                  href={SIGN_IN_URL}
+                  onClick={() => setOpen(false)}
+                  className="-my-2.5 block py-2.5 text-white/80"
+                >
+                  Sign in
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SIGN_UP_URL}
                   onClick={() => setOpen(false)}
                   className="mt-1.5 -mb-0.5 inline-flex min-h-[44px] items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold"
                 >
