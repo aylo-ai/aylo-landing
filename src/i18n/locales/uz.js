@@ -136,6 +136,53 @@ export default {
     website: 'Veb-sayt',
   },
 
+  useCases: {
+    title: 'Aylo AI kimlar uchun',
+    subtitle: 'Mijozlar bilan yozishmalar savdoning bir qismi bo\'lgan har qanday biznes uchun',
+    items: [
+      {
+        title: 'Onlayn savdo va Instagram do\'konlar',
+        desc: 'Narx, o\'lcham va mavjudlik haqidagi savollarga javob beradi, buyurtmani qabul qiladi va yetkazib berish shartlarini tushuntiradi.',
+      },
+      {
+        title: 'Restoran va kafelar',
+        desc: 'Menyu va narxlarni ko\'rsatadi, joy band qiladi, yetkazib berish buyurtmasini oladi va ish vaqtini aytadi.',
+      },
+      {
+        title: 'Klinika va go\'zallik salonlari',
+        desc: 'Qabulga yozadi, xizmat narxlarini tushuntiradi, bo\'sh vaqtlarni taklif qiladi va eslatma yuboradi.',
+      },
+      {
+        title: 'Ta\'lim markazlari',
+        desc: 'Kurslar, narxlar va jadval haqida ma\'lumot beradi, sinov darsiga yozadi va nomzod ma\'lumotlarini yig\'adi.',
+      },
+      {
+        title: 'Ko\'chmas mulk va xizmatlar',
+        desc: 'Mijoz talabini aniqlaydi, mos variantlarni saralaydi va ko\'rikni kelishish uchun menejerga uzatadi.',
+      },
+      {
+        title: 'Yetkazib berish va logistika',
+        desc: 'Buyurtma holatini aytadi, yetkazib berish hududi va narxini hisoblaydi, murakkab holatlarni operatorga o\'tkazadi.',
+      },
+    ],
+  },
+
+  roi: {
+    title: 'Qancha tejashingizni hisoblang',
+    subtitle: 'O\'z raqamlaringizni kiriting — hisob shu yerda, oshkora tarzda amalga oshadi',
+    inputsTitle: 'Sizning raqamlaringiz',
+    messagesPerDay: 'Kuniga kelgan xabarlar',
+    salary: 'Menejerning oylik maoshi',
+    autoShare: 'Agent mustaqil hal qiladigan ulush',
+    currency: 'so\'m',
+    outHandled: 'Oyiga agent hal qiladigan xabarlar',
+    outHours: 'Oyiga bo\'shaydigan menejer soatlari',
+    outSaving: 'Oyiga taxminiy tejam',
+    disclaimer:
+      'Bu — kafolat emas, balki siz kiritgan raqamlar asosidagi taxminiy hisob. Har bir xabar menejerning {minutes} daqiqasini oladi va bir oyda {hours} ish soati bor deb olindi. Haqiqiy natija biznesingizga va savollar murakkabligiga bog\'liq.',
+    cta: 'Tariflarni ko\'rish',
+  },
+
   pricing: {
     title: 'Foydalanishga asoslangan oddiy narxlar',
     subtitle: 'Bepul boshlang, keyin faqat foydalanganingiz uchun to\'lang',

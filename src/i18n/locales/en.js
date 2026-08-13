@@ -134,6 +134,53 @@ export default {
     website: 'Website',
   },
 
+  useCases: {
+    title: 'Who Aylo AI is for',
+    subtitle: 'Any business where the conversation is part of the sale',
+    items: [
+      {
+        title: 'Online retail and Instagram shops',
+        desc: 'Answers questions on price, sizes and availability, takes the order, and explains delivery terms.',
+      },
+      {
+        title: 'Restaurants and cafés',
+        desc: 'Shows the menu and prices, books a table, takes delivery orders, and gives opening hours.',
+      },
+      {
+        title: 'Clinics and beauty salons',
+        desc: 'Books appointments, explains what each service costs, offers open slots, and sends reminders.',
+      },
+      {
+        title: 'Education centres',
+        desc: 'Covers courses, prices and timetables, signs people up for a trial class, and collects their details.',
+      },
+      {
+        title: 'Real estate and services',
+        desc: 'Clarifies what the client is looking for, shortlists options, and hands over to a manager for viewings.',
+      },
+      {
+        title: 'Delivery and logistics',
+        desc: 'Reports order status, works out the delivery zone and cost, and escalates anything unusual.',
+      },
+    ],
+  },
+
+  roi: {
+    title: 'Work out what you would save',
+    subtitle: 'Put in your own numbers — the maths happens here, in the open',
+    inputsTitle: 'Your numbers',
+    messagesPerDay: 'Incoming messages per day',
+    salary: 'Manager salary per month',
+    autoShare: 'Share the agent handles on its own',
+    currency: 'UZS',
+    outHandled: 'Messages the agent handles per month',
+    outHours: 'Manager hours freed per month',
+    outSaving: 'Estimated monthly saving',
+    disclaimer:
+      'This is an estimate from the numbers you entered, not a guarantee. It assumes one message takes {minutes} minutes of a manager\'s time and that a month holds {hours} working hours. Real results depend on your business and how complex the questions are.',
+    cta: 'See the plans',
+  },
+
   pricing: {
     title: 'Regular, use-based pricing',
     subtitle: 'Start for free, then pay only for using',
