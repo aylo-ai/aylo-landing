@@ -96,7 +96,7 @@ export default function DashboardMockup() {
           <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
           <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
-          <span className="ml-4 text-xs text-white/40">app.aylo.ai/agent/john</span>
+          <span className="ml-4 text-xs text-white/40">app.aylo.uz/agent/john</span>
         </div>
 
         <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-[160px_1fr] sm:p-6">

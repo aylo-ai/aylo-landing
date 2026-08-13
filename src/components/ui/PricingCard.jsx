@@ -6,8 +6,12 @@ import Button from './Button'
 /*
   One pricing tier. `featured` is the single switch that makes a tier the
   recommended one: orange border, brand shadow, a slight scale-up from
-  `sm:` upward, the "most popular" flag, a deeper hover lift, and an orange
+  `md:` upward, the "most popular" flag, a deeper hover lift, and an orange
   CTA instead of the near-black one.
+
+  The scale-up is `md:`, matching where Pricing's grid becomes three columns.
+  While the cards are still stacked one-per-row, scaling one of them up just
+  makes it wider than its neighbours.
 
   `index` only drives the stagger delay; pass the map index.
 */
@@ -33,7 +37,7 @@ export default function PricingCard({
       whileHover={{ y: featured ? -10 : -6 }}
       className={`relative flex flex-col rounded-2xl border p-7 shadow-sm transition-shadow hover:shadow-2xl ${
         featured
-          ? 'border-brand-500 bg-white shadow-xl shadow-brand-500/20 sm:scale-105'
+          ? 'border-brand-500 bg-white shadow-xl shadow-brand-500/20 md:scale-105'
           : 'border-black/5 bg-white'
       }`}
     >

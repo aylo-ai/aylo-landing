@@ -64,7 +64,14 @@ export default function Pricing() {
           tone="light"
         />
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
+        {/*
+          Three columns start at `md` (768px), not `sm` (640px). At 640px each
+          card is ~197px wide, and `p-7` takes 56px of that — leaving ~140px
+          for a tier name, a price, and up to seven feature rows, which wrap
+          into an unreadable column. The featured card's `sm:scale-105` made it
+          worse by pushing its neighbours narrower still.
+        */}
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
           {plans.map((plan, i) => (
             <PricingCard
               key={plan.name}
