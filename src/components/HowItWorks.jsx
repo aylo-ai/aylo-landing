@@ -2,32 +2,18 @@ import { motion } from 'framer-motion'
 import { Rocket } from 'lucide-react'
 import SectionHeading from './ui/SectionHeading'
 import Button from './ui/Button'
-
-const steps = [
-  {
-    n: 1,
-    title: 'Sign Up & Connect',
-    desc: 'Sign up and connect your social media accounts in seconds.',
-  },
-  {
-    n: 2,
-    title: 'Create Your AI Agent',
-    desc: 'Build your AI agent with no coding required using our smart templates.',
-  },
-  {
-    n: 3,
-    title: 'Launch & Engage',
-    desc: 'Launch your agent and start chatting with customers automatically.',
-  },
-]
+import { useT } from '../i18n'
 
 export default function HowItWorks() {
+  const t = useT()
+  const steps = t('howItWorks.steps')
+
   return (
     <section id="how-it-works" className="bg-white py-28 text-ink">
       <div className="section-container">
         <SectionHeading
-          title="How It Works"
-          subtitle="Get started in three simple steps"
+          title={t('howItWorks.title')}
+          subtitle={t('howItWorks.subtitle')}
           tone="light"
         />
 
@@ -43,7 +29,7 @@ export default function HowItWorks() {
 
           {steps.map((step, i) => (
             <motion.div
-              key={step.n}
+              key={step.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -54,7 +40,7 @@ export default function HowItWorks() {
                 whileHover={{ scale: 1.1 }}
                 className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-brand-500 text-lg font-bold text-white shadow-lg shadow-brand-500/40"
               >
-                {step.n}
+                {i + 1}
               </motion.div>
               <h3 className="text-lg font-bold">{step.title}</h3>
               <p className="mt-2 max-w-[220px] text-sm text-ink/60">{step.desc}</p>
@@ -70,7 +56,7 @@ export default function HowItWorks() {
           className="mt-14 flex justify-center"
         >
           <Button href="#pricing" icon={Rocket}>
-            Create a Agent
+            {t('howItWorks.cta')}
           </Button>
         </motion.div>
       </div>

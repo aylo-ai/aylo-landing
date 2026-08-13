@@ -53,6 +53,38 @@ content may depend on a transform animation to become visible or reachable**.
 Scroll entrances use `whileInView` with `viewport={{ once: true }}`; match that
 so sections don't re-animate on scroll-back.
 
+## Languages (i18n)
+
+Three languages: **Uzbek (default), Russian, English**. `src/i18n/index.jsx`
+holds a small context — no i18n library, because there is no routing, no
+pluralisation and no runtime catalogue loading to justify one.
+
+- `src/i18n/locales/{uz,ru,en}.js` are plain objects with identical key shapes.
+  `en.js` carries the comment marking it the copy source of truth, but **`uz.js`
+  is the default AND the fallback**, so it must always be complete — a key
+  missing from `ru`/`en` silently renders Uzbek.
+- Components call `useT()` and then `t('section.key')`. `t` returns whatever is
+  at the path, so arrays (`t('features.items')`, `t('pricing.plans')`) work the
+  same as strings. `t(key, { code })` interpolates `{code}`-style placeholders.
+- Icons, gradients and layout flags stay in the components, paired
+  **positionally** with the locale arrays: `FEATURE_ICONS[i]` ↔
+  `features.items[i]`, `AGENT_CARDS[i]` ↔ `mockup.cards[i]`. Adding an entry
+  means adding it to the component array *and* all three locales, in the same
+  position. `Pricing`'s `FEATURED_PLAN_INDEX` is likewise code, not copy, so the
+  three files cannot disagree about which tier is highlighted.
+- The choice persists in `localStorage` under `aylo-lang`. The browser language
+  is deliberately **not** sniffed — everyone lands on Uzbek unless they have
+  chosen otherwise. Add a `navigator.languages` branch to `readStoredLang` to
+  change that.
+- The provider syncs `<html lang>`, `document.title` and the meta description on
+  every switch. It deliberately leaves `og:`/`twitter:` tags alone: crawlers
+  read the served HTML and never run the effect, so the static tags in
+  `index.html` (English) are what gets shared.
+- `LanguageSwitcher` is a three-way segmented control, styled for dark surfaces
+  only. It appears in the navbar at `lg:` and inside the mobile menu below that.
+- The navbar's desktop row starts at `lg:`, not `md:` — Uzbek and Russian labels
+  run longer than English and, with the switcher, no longer fit at 768px.
+
 ## Contact form
 
 `Contact.jsx` reads `VITE_CONTACT_ENDPOINT` (Vite only exposes `VITE_`-prefixed

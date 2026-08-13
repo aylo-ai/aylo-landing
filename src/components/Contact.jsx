@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useT } from '../i18n'
 import { Send, CheckCircle2, Loader2, AlertCircle, Info } from 'lucide-react'
 import RobotMascot from './RobotMascot'
 
@@ -8,13 +9,18 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 const EMPTY_FORM = { name: '', email: '', message: '' }
 
-function validate(form) {
+/*
+  `t` is passed in rather than pulled from a hook: this runs outside the
+  component (and is called from the submit handler), and the messages have to
+  re-resolve when the visitor switches language mid-form.
+*/
+function validate(form, t) {
   const errors = {}
-  if (!form.name.trim()) errors.name = 'Please enter your name.'
-  if (!form.email.trim()) errors.email = 'Please enter your email address.'
+  if (!form.name.trim()) errors.name = t('contact.errors.name')
+  if (!form.email.trim()) errors.email = t('contact.errors.email')
   else if (!EMAIL_RE.test(form.email.trim()))
-    errors.email = 'That email address does not look right — check for typos.'
-  if (!form.message.trim()) errors.message = 'Please tell us a little about your project.'
+    errors.email = t('contact.errors.emailInvalid')
+  if (!form.message.trim()) errors.message = t('contact.errors.message')
   return errors
 }
 
@@ -31,6 +37,7 @@ const fieldOk = 'border-black/10 focus:border-brand-500 focus:ring-brand-500/20'
 const fieldBad = 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
 
 export default function Contact() {
+  const t = useT()
   // 'idle' | 'submitting' | 'success' | 'error' | 'unconfigured'
   const [status, setStatus] = useState('idle')
   const [statusMessage, setStatusMessage] = useState('')
@@ -46,7 +53,7 @@ export default function Contact() {
     setForm(next)
     // Re-validate live only after the first submit attempt, so we never
     // scold someone who is still typing their first character.
-    if (showErrors) setErrors(validate(next))
+    if (showErrors) setErrors(validate(next, t))
     // Editing after a completed attempt returns the button to its idle label.
     if (status === 'success' || status === 'error' || status === 'unconfigured') {
       setStatus('idle')
@@ -58,12 +65,12 @@ export default function Contact() {
     e.preventDefault()
     if (submitting) return
 
-    const nextErrors = validate(form)
+    const nextErrors = validate(form, t)
     setErrors(nextErrors)
     setShowErrors(true)
     if (Object.keys(nextErrors).length > 0) {
       setStatus('error')
-      setStatusMessage('Please fix the highlighted fields and try again.')
+      setStatusMessage(t('contact.status.fixFields'))
       return
     }
 
@@ -72,7 +79,7 @@ export default function Contact() {
     if (!CONTACT_ENDPOINT) {
       setStatus('unconfigured')
       setStatusMessage(
-        'Message delivery is not set up yet, so this form cannot reach us — your message was NOT sent. Please reach out through one of our other channels in the meantime.',
+        t('contact.status.unconfigured'),
       )
       return
     }
@@ -100,13 +107,13 @@ export default function Contact() {
       if (!res.ok) {
         throw new Error(
           res.status >= 500
-            ? `Our server had a problem (error ${res.status}). Please try again in a moment.`
-            : `We could not send your message (error ${res.status}). Please check your details and try again.`,
+            ? t('contact.status.server', { code: res.status })
+            : t('contact.status.client', { code: res.status }),
         )
       }
 
       setStatus('success')
-      setStatusMessage("Thanks! Your message is on its way — we'll get back to you shortly.")
+      setStatusMessage(t('contact.status.success'))
       setForm(EMPTY_FORM)
       setErrors({})
       setShowErrors(false)
@@ -114,9 +121,8 @@ export default function Contact() {
       setStatus('error')
       setStatusMessage(
         err?.name === 'AbortError'
-          ? 'That took too long and timed out. Your message was not sent — please try again.'
-          : err?.message ||
-              'Something went wrong and your message was not sent. Please try again.',
+          ? t('contact.status.timeout')
+          : err?.message || t('contact.status.generic'),
       )
     } finally {
       clearTimeout(timeout)
@@ -155,15 +161,13 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Let&apos;s Talk</h2>
-          <p className="mt-3 max-w-sm text-ink/60">
-            Ready to transform your customer engagement? Get in touch with us.
-          </p>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">{t('contact.title')}</h2>
+          <p className="mt-3 max-w-sm text-ink/60">{t('contact.subtitle')}</p>
 
           <form onSubmit={handleSubmit} noValidate className="mt-8 flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-name" className="sr-only">
-                Your Name
+                {t('contact.nameLabel')}
               </label>
               <input
                 required
@@ -171,7 +175,7 @@ export default function Contact() {
                 name="name"
                 type="text"
                 autoComplete="name"
-                placeholder="Your Name"
+                placeholder={t('contact.nameLabel')}
                 value={form.name}
                 onChange={updateField('name')}
                 disabled={submitting}
@@ -188,7 +192,7 @@ export default function Contact() {
 
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-email" className="sr-only">
-                Your Email
+                {t('contact.emailLabel')}
               </label>
               <input
                 required
@@ -196,7 +200,7 @@ export default function Contact() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="Your Email"
+                placeholder={t('contact.emailLabel')}
                 value={form.email}
                 onChange={updateField('email')}
                 disabled={submitting}
@@ -213,14 +217,14 @@ export default function Contact() {
 
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-message" className="sr-only">
-                Your Message
+                {t('contact.messageLabel')}
               </label>
               <textarea
                 required
                 id="contact-message"
                 name="message"
                 rows={4}
-                placeholder="Tell us about your project..."
+                placeholder={t('contact.messagePlaceholder')}
                 value={form.message}
                 onChange={updateField('message')}
                 disabled={submitting}
@@ -246,26 +250,26 @@ export default function Contact() {
             >
               {submitting ? (
                 <>
-                  <Loader2 size={16} className="animate-spin" /> Sending…
+                  <Loader2 size={16} className="animate-spin" /> {t('contact.sending')}
                 </>
               ) : status === 'success' ? (
                 <>
-                  <CheckCircle2 size={16} /> Message Sent
+                  <CheckCircle2 size={16} /> {t('contact.sent')}
                 </>
               ) : status === 'error' || status === 'unconfigured' ? (
                 <>
-                  <Send size={16} /> Try Again
+                  <Send size={16} /> {t('contact.tryAgain')}
                 </>
               ) : (
                 <>
-                  <Send size={16} /> Send Message
+                  <Send size={16} /> {t('contact.send')}
                 </>
               )}
             </motion.button>
 
             {/* Live region: announces submitting / success / failure to screen readers. */}
             <p className="sr-only" role="status" aria-live="polite">
-              {submitting ? 'Sending your message…' : ''}
+              {submitting ? t('contact.srSending') : ''}
             </p>
 
             {banner && statusMessage && (

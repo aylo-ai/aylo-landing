@@ -1,73 +1,45 @@
 import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
 import SectionHeading from './ui/SectionHeading'
+import { useT } from '../i18n'
 
 /*
  * ============================================================================
  * PLACEHOLDER COPY — MUST BE REPLACED BEFORE LAUNCH
  * ----------------------------------------------------------------------------
- * These are NOT real customer testimonials. Aylo AI has not launched and no
- * customer has said any of this. The text below is fictional layout filler,
- * written to be obviously fake so it cannot be mistaken for a genuine
- * endorsement if it ships by accident.
+ * The quotes rendered here come from `testimonials.items` in each locale file
+ * (src/i18n/locales/*.js) and are NOT real customer testimonials. Aylo AI has
+ * not launched and no customer has said any of this. The text is fictional
+ * layout filler, written to be obviously fake so it cannot be mistaken for a
+ * genuine endorsement if it ships by accident.
  *
- * Before launch, replace every entry with a REAL quote from a REAL customer,
- * with written permission to use their name, title, company and words. Do not
- * "polish" this filler into realistic-sounding names, logos or metrics — that
- * would be a fabricated endorsement, not a placeholder.
+ * Before launch, replace every entry in ALL THREE locales with a REAL quote
+ * from a REAL customer, with written permission to use their name, title,
+ * company and words. Do not "polish" this filler into realistic-sounding
+ * names, logos or metrics — that would be a fabricated endorsement, not a
+ * placeholder.
  *
- * Delete this comment only when all four entries are real and permissioned.
+ * Delete this comment only when every entry is real and permissioned.
  * ============================================================================
  */
-const testimonials = [
-  {
-    // Short quote — exercises the minimum card height.
-    quote: 'Placeholder testimonial. Nobody has said this — a real quote belongs here.',
-    name: 'Customer Name A',
-    role: 'Job title, Company A (placeholder)',
-    initial: 'A',
-  },
-  {
-    // Medium quote.
-    quote:
-      'Example copy standing in for a customer story about setup and everyday use. Their own words, with their permission, go here before launch.',
-    name: 'Customer Name B',
-    role: 'Job title, Company B (placeholder)',
-    initial: 'B',
-  },
-  {
-    // Long quote — exercises the tallest card and the bottom-aligned byline.
-    quote:
-      'This is sample text, not an endorsement. Once a customer has agreed to be quoted, this space will carry their own account of what changed for their team, with any figures verified first.',
-    name: 'Customer Name C',
-    role: 'Job title, Company C (placeholder)',
-    initial: 'C',
-  },
-  {
-    // Medium-short quote.
-    quote: 'Filler quote for layout only. Replace with a real, permissioned customer testimonial.',
-    name: 'Customer Name D',
-    role: 'Job title, Company D (placeholder)',
-    initial: 'D',
-  },
-]
-
 export default function Testimonials() {
+  const t = useT()
+
   return (
     <section id="testimonials" className="bg-[#f7f7f8] py-28 text-ink">
       <div className="section-container">
         {/* TODO(pre-launch): "thousands of businesses" is an unsubstantiated claim for an
             unlaunched product. Marketing/legal should confirm or reword before launch. */}
         <SectionHeading
-          title="What Our Customers Say"
-          subtitle="Join thousands of businesses growing with Aylo AI"
+          title={t('testimonials.title')}
+          subtitle={t('testimonials.subtitle')}
           tone="light"
         />
 
         <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {testimonials.map((t, i) => (
+          {t('testimonials.items').map((item, i) => (
             <motion.div
-              key={t.name}
+              key={item.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
@@ -82,14 +54,17 @@ export default function Testimonials() {
               </div>
               {/* Quotes vary in length; the byline is pushed to the card bottom so
                   all four cards line up regardless of how tall the text runs. */}
-              <p className="text-sm leading-relaxed text-ink/70">&ldquo;{t.quote}&rdquo;</p>
+              <p className="text-sm leading-relaxed text-ink/70">&ldquo;{item.quote}&rdquo;</p>
               <div className="mt-auto flex items-center gap-3 pt-5">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white">
-                  {t.initial}
+                  {/* Placeholder avatars are lettered A-D by position; the
+                      names are translated, so deriving the letter from the
+                      name would change it per language. */}
+                  {String.fromCharCode(65 + i)}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold">{t.name}</p>
-                  <p className="text-xs text-ink/50">{t.role}</p>
+                  <p className="text-sm font-semibold">{item.name}</p>
+                  <p className="text-xs text-ink/50">{item.role}</p>
                 </div>
               </div>
             </motion.div>

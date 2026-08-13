@@ -1,31 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
-
-const faqs = [
-  {
-    q: 'How to use Aylo?',
-    a: 'Sign up for a free account, connect your social media channels, and use our no-code builder to design your AI agent. Once configured, launch it and it will start engaging with your customers automatically across every connected channel.',
-  },
-  {
-    q: 'How to change subscription?',
-    a: 'Head to your account settings and open the Billing tab. From there you can upgrade, downgrade, or switch your plan at any time — changes apply immediately and billing is prorated.',
-  },
-  {
-    q: 'How to cancel Subscription?',
-    a: 'Go to Billing in your dashboard and select "Cancel Subscription". Your plan will remain active until the end of the current billing cycle, with no further charges after that.',
-  },
-  {
-    q: 'How to create Project?',
-    a: 'From your dashboard, click "New Project", give it a name, and choose a template or start from scratch. You can then attach agents, data sources, and integrations to that project.',
-  },
-  {
-    q: 'Can I create private Dataset?',
-    a: 'Yes. Every workspace supports private datasets that are only accessible to your team. You can upload CSVs, connect a database, or sync from your CRM securely.',
-  },
-]
+import { useT } from '../i18n'
 
 export default function FAQ() {
+  const t = useT()
+  const faqs = t('faq.items')
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
@@ -38,7 +18,7 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center text-3xl font-extrabold sm:text-4xl"
         >
-          FAQs
+          {t('faq.title')}
         </motion.h2>
 
         <div className="flex flex-col gap-4">

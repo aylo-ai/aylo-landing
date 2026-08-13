@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { CircleDot, Zap, CreditCard } from 'lucide-react'
+import { useT } from '../i18n'
 
 const brands = [
   { name: 'uzum', icon: CircleDot, color: 'text-violet-400' },
@@ -11,13 +12,12 @@ const brands = [
 ]
 
 export default function LogoMarquee() {
+  const t = useT()
   const loop = [...brands, ...brands]
 
   return (
     <section className="relative border-y border-white/5 bg-ink py-10">
-      <p className="mb-6 text-center text-sm text-white/40">
-        100+ Companies already using Aylo AI
-      </p>
+      <p className="mb-6 text-center text-sm text-white/40">{t('logos.label')}</p>
       <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
