@@ -1,0 +1,5 @@
+# https://aylo.uz — public marketing site, everything is crawlable.
+User-agent: *
+Allow: /
+
+Sitemap: https://aylo.uz/sitemap.xml

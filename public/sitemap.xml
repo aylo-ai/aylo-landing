@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One URL, deliberately. The site is a single page with in-page anchors and no
+  router, and the language choice lives in localStorage rather than in the URL,
+  so there are no /uz, /ru or /en addresses to declare. If per-language routes
+  are ever added, list them here with xhtml:link rel="alternate" hreflang.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://aylo.uz/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

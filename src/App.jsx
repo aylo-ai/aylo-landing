@@ -5,9 +5,11 @@ import NeonFaceHero from './components/NeonFaceHero'
 import LogoMarquee from './components/LogoMarquee'
 import Features from './components/Features'
 import HowItWorks from './components/HowItWorks'
+import UseCases from './components/UseCases'
 import Testimonials from './components/Testimonials'
 import MetaVerified from './components/MetaVerified'
 import Integrations from './components/Integrations'
+import RoiCalculator from './components/RoiCalculator'
 import Pricing from './components/Pricing'
 import FAQ from './components/FAQ'
 import Contact from './components/Contact'
@@ -32,9 +34,11 @@ function App() {
         <LogoMarquee />
         <Features />
         <HowItWorks />
+        <UseCases />
         <Testimonials />
         <MetaVerified />
         <Integrations />
+        <RoiCalculator />
         <Pricing />
         <FAQ />
         <Contact />

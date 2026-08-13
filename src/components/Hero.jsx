@@ -85,6 +85,22 @@ export default function Hero() {
           </Button>
         </motion.div>
 
+        {/*
+          Free-tier reassurance, directly under the CTAs where the visitor
+          hesitates. The allowance named here must match the Free tier in
+          `pricing.plans[0].allowance` — if the free allowance changes, change
+          both. Opacity-led entrance so it is still readable with reduced
+          motion (the y offset drops out, the fade does not).
+        */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="mt-5 text-xs text-white/45 sm:text-sm"
+        >
+          {t('hero.freeNote')}
+        </motion.p>
+
         <DashboardMockup />
       </div>
     </section>

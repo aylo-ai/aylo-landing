@@ -25,16 +25,17 @@ export default {
   },
 
   hero: {
-    badge: '100+ companies already automating sales with Aylo AI',
+    badge: 'Automate social media sales — around the clock',
     titleLead: 'Build AI Agents That',
     titleAccent: 'Sell for You',
     subtitle:
       'Aylo AI lets you create powerful AI agents to engage with your customers 24/7 on social media. Boost sales, automate conversations, and grow your business effortlessly.',
     ctaPrimary: 'Create an Agent',
     ctaSecondary: 'See How it Works',
+    freeNote: 'Start free — 100 conversations a month, no card required.',
   },
 
-  logos: { label: '100+ Companies already using Aylo AI' },
+  logos: { label: 'Works where your customers already are' },
 
   features: {
     title: 'Why Choose Aylo AI',
@@ -90,8 +91,7 @@ export default {
 
   testimonials: {
     title: 'What Our Customers Say',
-    // TODO(pre-launch): unsubstantiated claim for an unlaunched product.
-    subtitle: 'Join thousands of businesses growing with Aylo AI',
+    subtitle: 'Real customer quotes will appear here before launch',
     // PLACEHOLDER — see the banner comment in Testimonials.jsx. Not real quotes.
     items: [
       {
@@ -134,59 +134,126 @@ export default {
     website: 'Website',
   },
 
-  pricing: {
-    title: 'Regular, use-based pricing',
-    subtitle: 'Start for free, then pay only for using',
-    popularBadge: 'MOST POPULAR PLAN',
-    plans: [
+  useCases: {
+    title: 'Who Aylo AI is for',
+    subtitle: 'Any business where the conversation is part of the sale',
+    items: [
       {
-        name: 'Starter',
-        tagline: 'Ideal for small projects',
-        price: 'Free',
-        period: '',
-        cta: 'Try for free',
-        features: [
-          'Unlimited personal files',
-          'Email support',
-          'CSV data export',
-          'Basic analytics dashboard',
-          '1,000 API calls per month',
-        ],
+        title: 'Online retail and Instagram shops',
+        desc: 'Answers questions on price, sizes and availability, takes the order, and explains delivery terms.',
       },
       {
-        name: 'Professional',
-        tagline: 'For freelancers and startups',
-        price: '$15',
-        period: '/per user',
-        cta: 'Select plan',
-        features: [
-          'All starter features +',
-          'Up to 5 user accounts',
-          'Team collaboration tools',
-          'Custom dashboards',
-          'Multiple data export formats',
-          'Basic custom integrations',
-        ],
+        title: 'Restaurants and cafés',
+        desc: 'Shows the menu and prices, books a table, takes delivery orders, and gives opening hours.',
       },
       {
-        name: 'Organization',
-        tagline: 'For fast-growing businesses',
-        price: '$30',
-        period: '/per user',
-        cta: 'Select plan',
-        features: [
-          'All professional features +',
-          'Enterprise security suite',
-          'Single Sign-On (SSO)',
-          'Custom contract terms',
-          'Dedicated phone support',
-          'Custom integration support',
-          'Compliance tools',
-        ],
+        title: 'Clinics and beauty salons',
+        desc: 'Books appointments, explains what each service costs, offers open slots, and sends reminders.',
+      },
+      {
+        title: 'Education centres',
+        desc: 'Covers courses, prices and timetables, signs people up for a trial class, and collects their details.',
+      },
+      {
+        title: 'Real estate and services',
+        desc: 'Clarifies what the client is looking for, shortlists options, and hands over to a manager for viewings.',
+      },
+      {
+        title: 'Delivery and logistics',
+        desc: 'Reports order status, works out the delivery zone and cost, and escalates anything unusual.',
       },
     ],
   },
 
+  roi: {
+    title: 'Work out what you would save',
+    subtitle: 'Put in your own numbers — the maths happens here, in the open',
+    inputsTitle: 'Your numbers',
+    messagesPerDay: 'Incoming messages per day',
+    salary: 'Manager salary per month',
+    autoShare: 'Share the agent handles on its own',
+    currency: 'UZS',
+    outHandled: 'Messages the agent handles per month',
+    outHours: 'Manager hours freed per month',
+    outSaving: 'Estimated monthly saving',
+    disclaimer:
+      'This is an estimate from the numbers you entered, not a guarantee. It assumes one message takes {minutes} minutes of a manager\'s time and that a month holds {hours} working hours. Real results depend on your business and how complex the questions are.',
+    cta: 'See the plans',
+  },
+
+  pricing: {
+    title: 'Priced by conversation, in som',
+    subtitle: 'Start free. Pay for the conversations your agent handles, not for seats',
+    popularBadge: 'MOST POPULAR PLAN',
+    billingLabel: 'Billing period',
+    monthly: 'Monthly',
+    annual: 'Annual',
+    annualSave: '-20%',
+    currency: ' UZS',
+    perMonth: '/mo',
+    freePrice: 'Free',
+    noCard: 'No card required',
+    cancelAnytime: 'Cancel anytime',
+    billedAnnually: 'Billed annually',
+    note: 'Prices in som, excluding VAT. A conversation is one customer talking to your agent; it closes after 24 hours of inactivity. Go over your allowance and the agent keeps running — we will suggest the next tier.',
+    plans: [
+      {
+        name: 'Free',
+        tagline: 'To try it out',
+        priceMonthly: 0,
+        allowance: '100 conversations / month',
+        cta: 'Start free',
+        features: [
+          '1 channel',
+          'Basic knowledge base',
+          'Conversation history',
+          'Email support',
+        ],
+      },
+      {
+        name: 'Starter',
+        tagline: 'For small shops and salons',
+        priceMonthly: 199000,
+        allowance: '500 conversations / month',
+        cta: 'Select plan',
+        features: [
+          '3 channels',
+          'Unlimited knowledge base',
+          'Handover to a human',
+          'Basic analytics',
+          '100+ languages',
+        ],
+      },
+      {
+        name: 'Business',
+        tagline: 'For a growing business',
+        priceMonthly: 499000,
+        allowance: '2,500 conversations / month',
+        cta: 'Select plan',
+        features: [
+          'All channels',
+          'Everything in Starter +',
+          'Up to 5 team members',
+          'Detailed reporting',
+          'API and webhooks',
+        ],
+      },
+      {
+        name: 'Company',
+        tagline: 'For high message volume',
+        priceMonthly: 1190000,
+        allowance: '10,000 conversations / month',
+        cta: 'Contact us',
+        features: [
+          'Everything in Business +',
+          'Unlimited team members',
+          'Priority support',
+          'Custom contract terms',
+          'Single Sign-On (SSO)',
+        ],
+      },
+    ],
+  },
   faq: {
     title: 'FAQs',
     items: [
@@ -195,12 +262,24 @@ export default {
         a: 'Sign up for a free account, connect your social media channels, and use our no-code builder to design your AI agent. Once configured, launch it and it will start engaging with your customers automatically across every connected channel.',
       },
       {
-        q: 'How to change subscription?',
-        a: 'Head to your account settings and open the Billing tab. From there you can upgrade, downgrade, or switch your plan at any time — changes apply immediately and billing is prorated.',
+        q: 'What counts as a conversation?',
+        a: 'A conversation is one customer talking to your agent — however many messages they exchange inside it, it counts as one. It closes after 24 hours without activity, so if the same customer writes again next week, that is a new conversation. You pay for the conversations your agent handles, not for messages and not for seats.',
       },
       {
-        q: 'How to cancel Subscription?',
-        a: 'Go to Billing in your dashboard and select "Cancel Subscription". Your plan will remain active until the end of the current billing cycle, with no further charges after that.',
+        q: 'What happens if I go over my allowance?',
+        a: 'Your agent keeps replying — we do not cut it off in the middle of a conversation, and we do not move you to a more expensive tier on our own. You will see that you have passed the limit and we will suggest the tier that matches your volume; switching is your decision.',
+      },
+      {
+        q: 'Is the Free plan really free?',
+        a: 'Yes: 100 conversations a month, one channel, no card required. It is a plan, not a time-limited trial — if you stay within 100 conversations you can stay on it. When you need more volume or more channels, you pick a paid tier yourself.',
+      },
+      {
+        q: 'Can I change tier or cancel?',
+        a: 'Both, at any time, from the Billing tab in your account. Upgrades and downgrades take effect immediately and billing is prorated. If you cancel, your plan stays active until the end of the period you have already paid for, with no further charges after that.',
+      },
+      {
+        q: 'What does the annual price mean, and is VAT included?',
+        a: 'Annual billing takes 20% off the monthly price and is paid a year at a time — the figure on the card is the effective monthly cost under that commitment. All prices are in som and exclude VAT.',
       },
       {
         q: 'How to create Project?',

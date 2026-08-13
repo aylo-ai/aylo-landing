@@ -38,6 +38,125 @@
     <meta name="twitter:image" content="https://aylo.uz/og-image.png" />
     <meta name="twitter:image:alt" content="Aylo AI — Build AI Agents That Sell for You" />
 
+    <!--
+      Structured data. Deliberately limited to facts that are true today: the
+      organisation, the product, and the four published tiers with their real
+      som prices (mirroring `pricing.plans` in the locale files — if a price
+      changes there, change it here too).
+
+      There is intentionally NO aggregateRating and NO review block. Both are
+      tempting because they render star ratings in search results, but the
+      product has no reviews yet, so publishing either would be fabricated
+      data submitted to search engines. Add them only from real, attributable
+      reviews. Contact points, social profiles and a postal address are
+      likewise omitted rather than invented.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://aylo.uz/#organization",
+            "name": "Aylo AI",
+            "url": "https://aylo.uz/",
+            "logo": "https://aylo.uz/apple-touch-icon.png",
+            "description": "Aylo AI builds AI sales agents that talk to your customers on social media around the clock."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://aylo.uz/#website",
+            "url": "https://aylo.uz/",
+            "name": "Aylo AI",
+            "publisher": { "@id": "https://aylo.uz/#organization" },
+            "inLanguage": ["uz", "ru", "en"]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://aylo.uz/#software",
+            "name": "Aylo AI",
+            "applicationCategory": "BusinessApplication",
+            "applicationSubCategory": "AI sales agent",
+            "operatingSystem": "Web browser",
+            "url": "https://aylo.uz/",
+            "publisher": { "@id": "https://aylo.uz/#organization" },
+            "inLanguage": ["uz", "ru", "en"],
+            "description": "Create AI agents that answer your customers on social media 24/7. Priced per conversation, in som.",
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "UZS",
+              "lowPrice": "0",
+              "highPrice": "1190000",
+              "offerCount": "4",
+              "url": "https://aylo.uz/#pricing",
+              "offers": [
+                {
+                  "@type": "Offer",
+                  "name": "Free",
+                  "description": "100 conversations per month, 1 channel. No card required.",
+                  "price": "0",
+                  "priceCurrency": "UZS",
+                  "url": "https://aylo.uz/#pricing",
+                  "availability": "https://schema.org/InStock"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Starter",
+                  "description": "500 conversations per month, 3 channels.",
+                  "price": "199000",
+                  "priceCurrency": "UZS",
+                  "url": "https://aylo.uz/#pricing",
+                  "availability": "https://schema.org/InStock",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "199000",
+                    "priceCurrency": "UZS",
+                    "valueAddedTaxIncluded": false,
+                    "unitCode": "MON",
+                    "unitText": "month"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Business",
+                  "description": "2500 conversations per month, all channels, up to 5 team members.",
+                  "price": "499000",
+                  "priceCurrency": "UZS",
+                  "url": "https://aylo.uz/#pricing",
+                  "availability": "https://schema.org/InStock",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "499000",
+                    "priceCurrency": "UZS",
+                    "valueAddedTaxIncluded": false,
+                    "unitCode": "MON",
+                    "unitText": "month"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Company",
+                  "description": "10000 conversations per month, unlimited team members, priority support.",
+                  "price": "1190000",
+                  "priceCurrency": "UZS",
+                  "url": "https://aylo.uz/#pricing",
+                  "availability": "https://schema.org/InStock",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "1190000",
+                    "priceCurrency": "UZS",
+                    "valueAddedTaxIncluded": false,
+                    "unitCode": "MON",
+                    "unitText": "month"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

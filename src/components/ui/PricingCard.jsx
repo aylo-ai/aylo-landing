@@ -5,15 +5,16 @@ import Button from './Button'
 
 /*
   One pricing tier. `featured` is the single switch that makes a tier the
-  recommended one: orange border, brand shadow, a slight scale-up from
-  `md:` upward, the "most popular" flag, a deeper hover lift, and an orange
-  CTA instead of the near-black one.
+  recommended one: orange border, brand shadow, a slight scale-up at the widest
+  breakpoint, the "most popular" flag, a deeper hover lift, and an orange CTA
+  instead of the near-black one.
 
-  The scale-up is `md:`, matching where Pricing's grid becomes three columns.
-  While the cards are still stacked one-per-row, scaling one of them up just
-  makes it wider than its neighbours.
+  The scale-up is `lg:`, matching where Pricing's grid reaches its final
+  four-column layout. At any narrower width the grid is one or two columns, and
+  scaling a single card up there just makes it wider than the card beside it.
 
-  `index` only drives the stagger delay; pass the map index.
+  `price` arrives already formatted — the parent owns currency formatting so
+  every card renders through one Intl.NumberFormat for the active language.
 */
 
 export default function PricingCard({
@@ -21,6 +22,8 @@ export default function PricingCard({
   tagline,
   price,
   period,
+  allowance,
+  footnote,
   features = [],
   cta,
   ctaHref = '#contact',
@@ -37,7 +40,7 @@ export default function PricingCard({
       whileHover={{ y: featured ? -10 : -6 }}
       className={`relative flex flex-col rounded-2xl border p-7 shadow-sm transition-shadow hover:shadow-2xl ${
         featured
-          ? 'border-brand-500 bg-white shadow-xl shadow-brand-500/20 md:scale-105'
+          ? 'border-brand-500 bg-white shadow-xl shadow-brand-500/20 lg:scale-105'
           : 'border-black/5 bg-white'
       }`}
     >
@@ -46,10 +49,21 @@ export default function PricingCard({
       <h3 className="text-lg font-bold">{name}</h3>
       <p className="mt-1 text-xs text-ink/50">{tagline}</p>
 
-      <div className="mt-5 flex items-end gap-1">
-        <span className="text-3xl font-extrabold">{price}</span>
-        {period && <span className="pb-1 text-sm text-ink/50">{period}</span>}
+      {/*
+        `items-baseline` rather than `items-end`: som figures are long enough
+        to wrap on a narrow card, and baseline alignment keeps the period label
+        sitting on the last line of the price instead of floating.
+      */}
+      <div className="mt-5 flex flex-wrap items-baseline gap-x-1.5">
+        <span className="text-2xl font-extrabold tabular-nums sm:text-3xl">{price}</span>
+        {period && <span className="text-sm text-ink/50">{period}</span>}
       </div>
+
+      {/* What the money actually buys — the unit this tier is metered on. */}
+      {allowance && (
+        <p className="mt-2 text-sm font-semibold text-brand-600">{allowance}</p>
+      )}
+      {footnote && <p className="mt-1 text-xs text-ink/45">{footnote}</p>}
 
       <ul className="mt-6 flex flex-1 flex-col gap-3">
         {features.map((f, fi) => (

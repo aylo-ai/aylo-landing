@@ -27,16 +27,17 @@ export default {
   },
 
   hero: {
-    badge: '100+ kompaniya Aylo AI bilan savdoni avtomatlashtirmoqda',
+    badge: 'Ijtimoiy tarmoqlarda savdoni avtomatlashtiring — 24/7',
     titleLead: 'Savdoni oshiradigan',
     titleAccent: 'AI agentlar yarating',
     subtitle:
       'Aylo AI yordamida ijtimoiy tarmoqlarda mijozlaringiz bilan 24/7 muloqot qiladigan kuchli AI agentlar yaratasiz. Savdoni oshiring, suhbatlarni avtomatlashtiring va biznesingizni osongina rivojlantiring.',
     ctaPrimary: 'Agent yaratish',
     ctaSecondary: 'Qanday ishlaydi',
+    freeNote: 'Bepul boshlang — oyiga 100 suhbat, karta talab qilinmaydi.',
   },
 
-  logos: { label: '100+ kompaniya allaqachon Aylo AI dan foydalanmoqda' },
+  logos: { label: 'Mijozlaringiz allaqachon foydalanadigan joyda ishlaydi' },
 
   features: {
     title: 'Nega Aylo AI?',
@@ -93,8 +94,7 @@ export default {
 
   testimonials: {
     title: 'Mijozlarimiz fikri',
-    // TODO(pre-launch): hali ishga tushmagan mahsulot uchun asossiz da'vo.
-    subtitle: 'Aylo AI bilan o\'sayotgan minglab bizneslarga qo\'shiling',
+    subtitle: 'Ishga tushirishdan oldin bu yerda haqiqiy mijozlar fikri turadi',
     // NAMUNA MATN — Testimonials.jsx dagi izohga qarang. Bular haqiqiy fikrlar emas.
     items: [
       {
@@ -136,59 +136,126 @@ export default {
     website: 'Veb-sayt',
   },
 
-  pricing: {
-    title: 'Foydalanishga asoslangan oddiy narxlar',
-    subtitle: 'Bepul boshlang, keyin faqat foydalanganingiz uchun to\'lang',
-    popularBadge: 'ENG MASHHUR TARIF',
-    plans: [
+  useCases: {
+    title: 'Aylo AI kimlar uchun',
+    subtitle: 'Mijozlar bilan yozishmalar savdoning bir qismi bo\'lgan har qanday biznes uchun',
+    items: [
       {
-        name: 'Boshlang\'ich',
-        tagline: 'Kichik loyihalar uchun qulay',
-        price: 'Bepul',
-        period: '',
-        cta: 'Bepul sinab ko\'rish',
-        features: [
-          'Cheklanmagan shaxsiy fayllar',
-          'Email orqali qo\'llab-quvvatlash',
-          'CSV formatida eksport',
-          'Asosiy tahlil paneli',
-          'Oyiga 1 000 API so\'rovi',
-        ],
+        title: 'Onlayn savdo va Instagram do\'konlar',
+        desc: 'Narx, o\'lcham va mavjudlik haqidagi savollarga javob beradi, buyurtmani qabul qiladi va yetkazib berish shartlarini tushuntiradi.',
       },
       {
-        name: 'Professional',
-        tagline: 'Frilanser va startaplar uchun',
-        price: '$15',
-        period: '/foydalanuvchi',
-        cta: 'Tarifni tanlash',
-        features: [
-          'Boshlang\'ich tarifdagi hammasi +',
-          '5 tagacha foydalanuvchi',
-          'Jamoa bilan ishlash vositalari',
-          'Moslashtiriladigan panellar',
-          'Turli eksport formatlari',
-          'Asosiy maxsus integratsiyalar',
-        ],
+        title: 'Restoran va kafelar',
+        desc: 'Menyu va narxlarni ko\'rsatadi, joy band qiladi, yetkazib berish buyurtmasini oladi va ish vaqtini aytadi.',
       },
       {
-        name: 'Tashkilot',
-        tagline: 'Tez o\'sayotgan bizneslar uchun',
-        price: '$30',
-        period: '/foydalanuvchi',
-        cta: 'Tarifni tanlash',
-        features: [
-          'Professional tarifdagi hammasi +',
-          'Korporativ xavfsizlik to\'plami',
-          'Yagona tizimga kirish (SSO)',
-          'Individual shartnoma shartlari',
-          'Telefon orqali shaxsiy qo\'llab-quvvatlash',
-          'Maxsus integratsiyalarni qo\'llab-quvvatlash',
-          'Talablarga muvofiqlik vositalari',
-        ],
+        title: 'Klinika va go\'zallik salonlari',
+        desc: 'Qabulga yozadi, xizmat narxlarini tushuntiradi, bo\'sh vaqtlarni taklif qiladi va eslatma yuboradi.',
+      },
+      {
+        title: 'Ta\'lim markazlari',
+        desc: 'Kurslar, narxlar va jadval haqida ma\'lumot beradi, sinov darsiga yozadi va nomzod ma\'lumotlarini yig\'adi.',
+      },
+      {
+        title: 'Ko\'chmas mulk va xizmatlar',
+        desc: 'Mijoz talabini aniqlaydi, mos variantlarni saralaydi va ko\'rikni kelishish uchun menejerga uzatadi.',
+      },
+      {
+        title: 'Yetkazib berish va logistika',
+        desc: 'Buyurtma holatini aytadi, yetkazib berish hududi va narxini hisoblaydi, murakkab holatlarni operatorga o\'tkazadi.',
       },
     ],
   },
 
+  roi: {
+    title: 'Qancha tejashingizni hisoblang',
+    subtitle: 'O\'z raqamlaringizni kiriting — hisob shu yerda, oshkora tarzda amalga oshadi',
+    inputsTitle: 'Sizning raqamlaringiz',
+    messagesPerDay: 'Kuniga kelgan xabarlar',
+    salary: 'Menejerning oylik maoshi',
+    autoShare: 'Agent mustaqil hal qiladigan ulush',
+    currency: 'so\'m',
+    outHandled: 'Oyiga agent hal qiladigan xabarlar',
+    outHours: 'Oyiga bo\'shaydigan menejer soatlari',
+    outSaving: 'Oyiga taxminiy tejam',
+    disclaimer:
+      'Bu — kafolat emas, balki siz kiritgan raqamlar asosidagi taxminiy hisob. Har bir xabar menejerning {minutes} daqiqasini oladi va bir oyda {hours} ish soati bor deb olindi. Haqiqiy natija biznesingizga va savollar murakkabligiga bog\'liq.',
+    cta: 'Tariflarni ko\'rish',
+  },
+
+  pricing: {
+    title: 'Suhbatlar soniga qarab, so\'mda',
+    subtitle: 'Bepul boshlang. Xodim soni uchun emas — agent hal qilgan suhbatlar uchun to\'lang',
+    popularBadge: 'ENG MASHHUR TARIF',
+    billingLabel: 'To\'lov davri',
+    monthly: 'Oylik',
+    annual: 'Yillik',
+    annualSave: '-20%',
+    currency: ' so\'m',
+    perMonth: '/oy',
+    freePrice: 'Bepul',
+    noCard: 'Karta talab qilinmaydi',
+    cancelAnytime: 'Istalgan vaqtda bekor qilinadi',
+    billedAnnually: 'Yillik to\'lovda, bir yilga',
+    note: 'Narxlar so\'mda va QQS hisobga olinmagan. Suhbat — agent bilan bir mijozning bir muloqoti; 24 soat harakatsizlikdan keyin yopiladi. Limitdan oshsangiz, agent to\'xtamaydi — keyingi tarifga o\'tishni taklif qilamiz.',
+    plans: [
+      {
+        name: 'Bepul',
+        tagline: 'Sinab ko\'rish uchun',
+        priceMonthly: 0,
+        allowance: 'Oyiga 100 suhbat',
+        cta: 'Bepul boshlash',
+        features: [
+          '1 ta kanal',
+          'Asosiy bilim bazasi',
+          'Suhbatlar tarixi',
+          'Email orqali qo\'llab-quvvatlash',
+        ],
+      },
+      {
+        name: 'Boshlang\'ich',
+        tagline: 'Kichik do\'kon va salonlar uchun',
+        priceMonthly: 199000,
+        allowance: 'Oyiga 500 suhbat',
+        cta: 'Tarifni tanlash',
+        features: [
+          '3 ta kanal',
+          'Cheklanmagan bilim bazasi',
+          'Operatorga uzatish',
+          'Asosiy tahlil paneli',
+          '100 dan ortiq til',
+        ],
+      },
+      {
+        name: 'Biznes',
+        tagline: 'O\'sayotgan bizneslar uchun',
+        priceMonthly: 499000,
+        allowance: 'Oyiga 2 500 suhbat',
+        cta: 'Tarifni tanlash',
+        features: [
+          'Barcha kanallar',
+          'Boshlang\'ich tarifdagi hammasi +',
+          '5 tagacha jamoa a\'zosi',
+          'Batafsil hisobotlar',
+          'API va webhook',
+        ],
+      },
+      {
+        name: 'Kompaniya',
+        tagline: 'Katta hajmli murojaatlar uchun',
+        priceMonthly: 1190000,
+        allowance: 'Oyiga 10 000 suhbat',
+        cta: 'Bog\'lanish',
+        features: [
+          'Biznes tarifdagi hammasi +',
+          'Cheklanmagan jamoa a\'zolari',
+          'Ustuvor qo\'llab-quvvatlash',
+          'Individual shartnoma shartlari',
+          'Yagona tizimga kirish (SSO)',
+        ],
+      },
+    ],
+  },
   faq: {
     title: 'Ko\'p so\'raladigan savollar',
     items: [
@@ -197,12 +264,24 @@ export default {
         a: 'Bepul akkaunt ochib, ijtimoiy tarmoq kanallaringizni ulang va kod yozishni talab qilmaydigan konstruktorimizda AI agentingizni loyihalang. Sozlab bo\'lgach, uni ishga tushiring — u ulangan barcha kanallarda mijozlar bilan avtomatik muloqot qilishni boshlaydi.',
       },
       {
-        q: 'Tarifni qanday o\'zgartiraman?',
-        a: 'Akkaunt sozlamalariga o\'tib, "Billing" bo\'limini oching. U yerdan tarifni istalgan vaqtda yuqoriga yoki pastga o\'zgartirishingiz mumkin — o\'zgarish darhol kuchga kiradi, to\'lov esa foydalanilgan muddatga mos qayta hisoblanadi.',
+        q: 'Suhbat deb nima hisoblanadi?',
+        a: 'Suhbat — bir mijozning agent bilan bir muloqoti: uning ichida qancha xabar yozilsa ham, bu bitta suhbat sanaladi. 24 soat harakatsizlikdan keyin suhbat yopiladi, shuning uchun o\'sha mijoz keyingi hafta yana yozsa, bu yangi suhbat bo\'ladi. To\'lov xabarlar soni yoki xodimlar soni uchun emas, agent hal qilgan suhbatlar uchun olinadi.',
       },
       {
-        q: 'Obunani qanday bekor qilaman?',
-        a: 'Boshqaruv panelidagi "Billing" bo\'limiga o\'tib, "Obunani bekor qilish"ni tanlang. Tarifingiz joriy hisob-kitob davri oxirigacha amal qiladi, undan keyin qo\'shimcha to\'lov olinmaydi.',
+        q: 'Limitdan oshib ketsam nima bo\'ladi?',
+        a: 'Agent javob berishni to\'xtatmaydi — suhbat o\'rtasida uzilmaydi va sizni o\'z ixtiyorimiz bilan qimmatroq tarifga o\'tkazmaymiz. Limitdan oshganingizni ko\'rasiz va biz hajmingizga mos tarifni taklif qilamiz; o\'tish yoki o\'tmaslik — sizning qaroringiz.',
+      },
+      {
+        q: 'Bepul tarif haqiqatan bepulmi?',
+        a: 'Ha: oyiga 100 suhbat, 1 ta kanal, karta talab qilinmaydi. Bu muddati cheklangan sinov emas, balki alohida tarif — 100 suhbat ichida qolsangiz, unda davom etishingiz mumkin. Ko\'proq hajm yoki ko\'proq kanal kerak bo\'lganda, pullik tarifni o\'zingiz tanlaysiz.',
+      },
+      {
+        q: 'Tarifni o\'zgartirsam yoki obunani bekor qilsam bo\'ladimi?',
+        a: 'Ikkisi ham, istalgan vaqtda — akkauntingizdagi "Billing" bo\'limidan. Tarifni yuqoriga yoki pastga o\'zgartirish darhol kuchga kiradi, to\'lov esa foydalanilgan muddatga mos qayta hisoblanadi. Bekor qilsangiz, tarif siz to\'lab qo\'ygan davr oxirigacha amal qiladi, undan keyin qo\'shimcha to\'lov olinmaydi.',
+      },
+      {
+        q: 'Yillik narx nimani bildiradi, QQS kiradimi?',
+        a: 'Yillik to\'lovda oylik narxdan 20% chegirma bo\'ladi va to\'lov bir yilga bir yo\'la amalga oshiriladi — kartochkadagi raqam shu shartdagi oylik narxni ko\'rsatadi. Barcha narxlar so\'mda va QQS hisobga olinmagan.',
       },
       {
         q: 'Loyihani qanday yarataman?',
