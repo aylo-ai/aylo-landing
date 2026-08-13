@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { Rocket, PlayCircle, Sparkles } from 'lucide-react'
 import DashboardMockup from './DashboardMockup'
+import Button from './ui/Button'
+import Badge from './ui/Badge'
 
 export default function Hero() {
   return (
@@ -34,15 +36,17 @@ export default function Hero() {
       />
 
       <div className="section-container relative text-center">
-        <motion.div
+        <Badge
+          tone="outline"
+          icon={Sparkles}
+          iconClassName="text-brand-400"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70"
+          className="mb-6"
         >
-          <Sparkles size={14} className="text-brand-400" />
           100+ companies already automating sales with Aylo AI
-        </motion.div>
+        </Badge>
 
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
@@ -71,24 +75,12 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            href="#pricing"
-            className="flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
-          >
-            <Rocket size={16} />
+          <Button href="#pricing" icon={Rocket}>
             Create a Agent
-          </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            href="#how-it-works"
-            className="flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/90 transition-colors hover:bg-white/5"
-          >
-            <PlayCircle size={16} />
+          </Button>
+          <Button href="#how-it-works" icon={PlayCircle} variant="secondary">
             See How it Works
-          </motion.a>
+          </Button>
         </motion.div>
 
         <DashboardMockup />

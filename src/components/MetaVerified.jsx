@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2, Rocket } from 'lucide-react'
+import Button from './ui/Button'
 
 const points = ['Secure data sharing', 'According to the rules', 'Official Integration']
 
@@ -45,15 +46,9 @@ export default function MetaVerified() {
             ))}
           </ul>
 
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            href="#pricing"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
-          >
-            <Rocket size={16} />
+          <Button href="#pricing" icon={Rocket} className="mt-8">
             Create a Agent
-          </motion.a>
+          </Button>
         </motion.div>
 
         <motion.div
