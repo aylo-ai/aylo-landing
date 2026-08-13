@@ -173,11 +173,11 @@ export default {
     salary: 'Manager salary per month',
     autoShare: 'Share the agent handles on its own',
     currency: 'UZS',
-    outHandled: 'Messages the agent handles per month',
+    outHandled: 'Conversations the agent handles per month',
     outHours: 'Manager hours freed per month',
     outSaving: 'Estimated monthly saving',
     disclaimer:
-      'This is an estimate from the numbers you entered, not a guarantee. It assumes one message takes {minutes} minutes of a manager\'s time and that a month holds {hours} working hours. Real results depend on your business and how complex the questions are.',
+      'This is an estimate from the numbers you entered, not a guarantee. It assumes one message takes {minutes} minutes of a manager\'s time, that a conversation runs about {perConversation} messages, and that a month holds {hours} working hours. Plans are metered in conversations, not messages. Real results depend on your business and how complex the questions are.',
     cta: 'See the plans',
   },
 

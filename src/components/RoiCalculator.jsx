@@ -29,6 +29,17 @@ const WORK_HOURS_PER_MONTH = 176
 const DAYS_PER_MONTH = 30
 
 /*
+  Messages per conversation. This exists to reconcile the estimator with the
+  price list: a business owner thinks in MESSAGES ("we get about 120 a day"),
+  but the tiers are metered in CONVERSATIONS. Reporting the message count as
+  the headline invited a visitor to read 2,520 messages against the 2,500-
+  conversation Business tier and buy roughly 300,000 UZS/month more than they
+  need — so the output is converted to conversations, which is the unit that
+  maps onto a tier.
+*/
+const MESSAGES_PER_CONVERSATION = 6
+
+/*
   The salary range is anchored on published 2026 figures rather than guessed:
   the national average monthly salary is 7,091,100 UZS and Tashkent's is
   12,013,900 UZS. The slider spans 3m-20m so both a regional small business and
@@ -55,18 +66,25 @@ export default function RoiCalculator() {
   )
 
   const result = useMemo(() => {
-    const handled = Math.round(
+    const messagesHandled = Math.round(
       values.messagesPerDay * DAYS_PER_MONTH * (values.autoShare / 100),
     )
-    const hoursFreed = Math.round((handled * MINUTES_PER_MESSAGE) / 60)
+    // Hours come from messages (time is spent per message); the headline count
+    // is in conversations (the unit the tiers are sold in).
+    const conversations = Math.round(messagesHandled / MESSAGES_PER_CONVERSATION)
+    const hoursFreed = Math.round((messagesHandled * MINUTES_PER_MESSAGE) / 60)
     const saving = Math.round((hoursFreed / WORK_HOURS_PER_MONTH) * values.salary)
-    return { handled, hoursFreed, saving }
+    return { conversations, hoursFreed, saving }
   }, [values])
 
   const update = (key) => (e) => setValues((v) => ({ ...v, [key]: Number(e.target.value) }))
 
   const tiles = [
-    { icon: MessageSquare, value: nf.format(result.handled), label: t('roi.outHandled') },
+    {
+      icon: MessageSquare,
+      value: nf.format(result.conversations),
+      label: t('roi.outHandled'),
+    },
     { icon: Clock, value: nf.format(result.hoursFreed), label: t('roi.outHours') },
     {
       icon: Wallet,
@@ -181,6 +199,7 @@ export default function RoiCalculator() {
               {t('roi.disclaimer', {
                 minutes: MINUTES_PER_MESSAGE,
                 hours: WORK_HOURS_PER_MONTH,
+                perConversation: MESSAGES_PER_CONVERSATION,
               })}
             </p>
 

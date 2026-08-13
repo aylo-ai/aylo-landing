@@ -175,11 +175,11 @@ export default {
     salary: 'Menejerning oylik maoshi',
     autoShare: 'Agent mustaqil hal qiladigan ulush',
     currency: 'so\'m',
-    outHandled: 'Oyiga agent hal qiladigan xabarlar',
+    outHandled: 'Oyiga agent hal qiladigan suhbatlar',
     outHours: 'Oyiga bo\'shaydigan menejer soatlari',
     outSaving: 'Oyiga taxminiy tejam',
     disclaimer:
-      'Bu — kafolat emas, balki siz kiritgan raqamlar asosidagi taxminiy hisob. Har bir xabar menejerning {minutes} daqiqasini oladi va bir oyda {hours} ish soati bor deb olindi. Haqiqiy natija biznesingizga va savollar murakkabligiga bog\'liq.',
+      'Bu — kafolat emas, balki siz kiritgan raqamlar asosidagi taxminiy hisob. Har bir xabar menejerning {minutes} daqiqasini oladi, bir suhbat o\'rtacha {perConversation} xabardan iborat va bir oyda {hours} ish soati bor deb olindi. Suhbat soni — tarif tanlashda hisobga olinadigan o\'lchov. Haqiqiy natija biznesingizga va savollar murakkabligiga bog\'liq.',
     cta: 'Tariflarni ko\'rish',
   },
 
