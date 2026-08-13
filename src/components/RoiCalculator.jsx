@@ -14,8 +14,7 @@ import { useI18n } from '../i18n'
   are stated on the page rather than buried. That distinction matters: this
   section must never read as a promise.
 
-  Currency is UZS because the audience is Uzbekistan. The pricing tiers are
-  still in USD (see the note in Pricing) — worth reconciling.
+  Currency is UZS, matching both the audience and the pricing tiers.
 */
 
 // Minutes of a manager's time one incoming message consumes end to end:
@@ -29,9 +28,16 @@ const WORK_HOURS_PER_MONTH = 176
 
 const DAYS_PER_MONTH = 30
 
+/*
+  The salary range is anchored on published 2026 figures rather than guessed:
+  the national average monthly salary is 7,091,100 UZS and Tashkent's is
+  12,013,900 UZS. The slider spans 3m-20m so both a regional small business and
+  a Tashkent employer find themselves inside it, and the default sits on the
+  national average instead of the low-ball 4m it started at.
+*/
 const SLIDERS = [
   { key: 'messagesPerDay', min: 10, max: 1000, step: 10 },
-  { key: 'salary', min: 2_000_000, max: 20_000_000, step: 500_000 },
+  { key: 'salary', min: 3_000_000, max: 20_000_000, step: 250_000 },
   { key: 'autoShare', min: 30, max: 90, step: 5 },
 ]
 
@@ -39,7 +45,7 @@ export default function RoiCalculator() {
   const { lang, t } = useI18n()
   const [values, setValues] = useState({
     messagesPerDay: 120,
-    salary: 4_000_000,
+    salary: 7_000_000,
     autoShare: 70,
   })
 

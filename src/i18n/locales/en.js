@@ -25,7 +25,7 @@ export default {
   },
 
   hero: {
-    badge: '100+ companies already automating sales with Aylo AI',
+    badge: 'Automate social media sales — around the clock',
     titleLead: 'Build AI Agents That',
     titleAccent: 'Sell for You',
     subtitle:
@@ -34,7 +34,7 @@ export default {
     ctaSecondary: 'See How it Works',
   },
 
-  logos: { label: '100+ Companies already using Aylo AI' },
+  logos: { label: 'Works where your customers already are' },
 
   features: {
     title: 'Why Choose Aylo AI',
@@ -90,8 +90,7 @@ export default {
 
   testimonials: {
     title: 'What Our Customers Say',
-    // TODO(pre-launch): unsubstantiated claim for an unlaunched product.
-    subtitle: 'Join thousands of businesses growing with Aylo AI',
+    subtitle: 'Real customer quotes will appear here before launch',
     // PLACEHOLDER — see the banner comment in Testimonials.jsx. Not real quotes.
     items: [
       {
@@ -182,58 +181,78 @@ export default {
   },
 
   pricing: {
-    title: 'Regular, use-based pricing',
-    subtitle: 'Start for free, then pay only for using',
+    title: 'Priced by conversation, in som',
+    subtitle: 'Start free. Pay for the conversations your agent handles, not for seats',
     popularBadge: 'MOST POPULAR PLAN',
+    billingLabel: 'Billing period',
+    monthly: 'Monthly',
+    annual: 'Annual',
+    annualSave: '-20%',
+    currency: ' UZS',
+    perMonth: '/mo',
+    freePrice: 'Free',
+    noCard: 'No card required',
+    cancelAnytime: 'Cancel anytime',
+    billedAnnually: 'Billed annually',
+    note: 'Prices in som, excluding VAT. A conversation is one customer talking to your agent; it closes after 24 hours of inactivity. Go over your allowance and the agent keeps running — we will suggest the next tier.',
     plans: [
       {
-        name: 'Starter',
-        tagline: 'Ideal for small projects',
-        price: 'Free',
-        period: '',
-        cta: 'Try for free',
+        name: 'Free',
+        tagline: 'To try it out',
+        priceMonthly: 0,
+        allowance: '100 conversations / month',
+        cta: 'Start free',
         features: [
-          'Unlimited personal files',
+          '1 channel',
+          'Basic knowledge base',
+          'Conversation history',
           'Email support',
-          'CSV data export',
-          'Basic analytics dashboard',
-          '1,000 API calls per month',
         ],
       },
       {
-        name: 'Professional',
-        tagline: 'For freelancers and startups',
-        price: '$15',
-        period: '/per user',
+        name: 'Starter',
+        tagline: 'For small shops and salons',
+        priceMonthly: 199000,
+        allowance: '500 conversations / month',
         cta: 'Select plan',
         features: [
-          'All starter features +',
-          'Up to 5 user accounts',
-          'Team collaboration tools',
-          'Custom dashboards',
-          'Multiple data export formats',
-          'Basic custom integrations',
+          '3 channels',
+          'Unlimited knowledge base',
+          'Handover to a human',
+          'Basic analytics',
+          '100+ languages',
         ],
       },
       {
-        name: 'Organization',
-        tagline: 'For fast-growing businesses',
-        price: '$30',
-        period: '/per user',
+        name: 'Business',
+        tagline: 'For a growing business',
+        priceMonthly: 499000,
+        allowance: '2,500 conversations / month',
         cta: 'Select plan',
         features: [
-          'All professional features +',
-          'Enterprise security suite',
-          'Single Sign-On (SSO)',
+          'All channels',
+          'Everything in Starter +',
+          'Up to 5 team members',
+          'Detailed reporting',
+          'API and webhooks',
+        ],
+      },
+      {
+        name: 'Company',
+        tagline: 'For high message volume',
+        priceMonthly: 1190000,
+        allowance: '10,000 conversations / month',
+        cta: 'Contact us',
+        features: [
+          'Everything in Business +',
+          'Unlimited team members',
+          'Priority support',
           'Custom contract terms',
-          'Dedicated phone support',
-          'Custom integration support',
-          'Compliance tools',
+          'Single Sign-On (SSO)',
         ],
       },
     ],
   },
-
   faq: {
     title: 'FAQs',
     items: [

@@ -112,9 +112,24 @@ nginx serves `/assets/` (content-hashed) as immutable and `index.html` as
 
 ## Content status
 
-Testimonials, FAQ copy, pricing tiers, and the company logos in `LogoMarquee`
-are placeholders taken from the mockups in `design/`, not real content or real
-brand marks. Treat them as replaceable.
+Testimonials and FAQ copy are placeholders taken from the mockups in `design/`.
+Treat them as replaceable — `Testimonials.jsx` carries a pre-launch banner
+explaining what must be replaced and in which locales.
+
+**Pricing is no longer placeholder.** The tiers in each locale's `pricing.plans`
+were derived from market research (Zukko.AI, ManyChat, Chatfuel, USD/UZS rate,
+Uzbek salary data) — the derivation and its anchors are documented in the header
+comment of `Pricing.jsx`. Prices are in som and metered on conversations, not
+seats. What is *not* verified is unit economics: whether 199,000 UZS for 500
+conversations clears inference cost depends on the model and average turns per
+conversation. Check the margin before launch.
+
+`LogoMarquee` used to show Uzum, Click and PayMe marks under "100+ companies
+already using Aylo AI". Those are real Uzbek payment companies and none is a
+customer, so the marks were removed — a live page naming real third parties as
+customers is a misrepresentation, not a placeholder. The band now lists the
+channels the agent works on. Real, permissioned customer logos belong there
+when they exist, and only then does the social-proof framing return.
 
 ## Agents
 

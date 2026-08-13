@@ -27,7 +27,7 @@ export default {
   },
 
   hero: {
-    badge: '100+ kompaniya Aylo AI bilan savdoni avtomatlashtirmoqda',
+    badge: 'Ijtimoiy tarmoqlarda savdoni avtomatlashtiring — 24/7',
     titleLead: 'Savdoni oshiradigan',
     titleAccent: 'AI agentlar yarating',
     subtitle:
@@ -36,7 +36,7 @@ export default {
     ctaSecondary: 'Qanday ishlaydi',
   },
 
-  logos: { label: '100+ kompaniya allaqachon Aylo AI dan foydalanmoqda' },
+  logos: { label: 'Mijozlaringiz allaqachon foydalanadigan joyda ishlaydi' },
 
   features: {
     title: 'Nega Aylo AI?',
@@ -93,8 +93,7 @@ export default {
 
   testimonials: {
     title: 'Mijozlarimiz fikri',
-    // TODO(pre-launch): hali ishga tushmagan mahsulot uchun asossiz da'vo.
-    subtitle: 'Aylo AI bilan o\'sayotgan minglab bizneslarga qo\'shiling',
+    subtitle: 'Ishga tushirishdan oldin bu yerda haqiqiy mijozlar fikri turadi',
     // NAMUNA MATN — Testimonials.jsx dagi izohga qarang. Bular haqiqiy fikrlar emas.
     items: [
       {
@@ -184,58 +183,78 @@ export default {
   },
 
   pricing: {
-    title: 'Foydalanishga asoslangan oddiy narxlar',
-    subtitle: 'Bepul boshlang, keyin faqat foydalanganingiz uchun to\'lang',
+    title: 'Suhbatlar soniga qarab, so\'mda',
+    subtitle: 'Bepul boshlang. Xodim soni uchun emas — agent hal qilgan suhbatlar uchun to\'lang',
     popularBadge: 'ENG MASHHUR TARIF',
+    billingLabel: 'To\'lov davri',
+    monthly: 'Oylik',
+    annual: 'Yillik',
+    annualSave: '-20%',
+    currency: ' so\'m',
+    perMonth: '/oy',
+    freePrice: 'Bepul',
+    noCard: 'Karta talab qilinmaydi',
+    cancelAnytime: 'Istalgan vaqtda bekor qilinadi',
+    billedAnnually: 'Yillik to\'lovda, bir yilga',
+    note: 'Narxlar so\'mda va QQS hisobga olinmagan. Suhbat — agent bilan bir mijozning bir muloqoti; 24 soat harakatsizlikdan keyin yopiladi. Limitdan oshsangiz, agent to\'xtamaydi — keyingi tarifga o\'tishni taklif qilamiz.',
     plans: [
       {
-        name: 'Boshlang\'ich',
-        tagline: 'Kichik loyihalar uchun qulay',
-        price: 'Bepul',
-        period: '',
-        cta: 'Bepul sinab ko\'rish',
+        name: 'Bepul',
+        tagline: 'Sinab ko\'rish uchun',
+        priceMonthly: 0,
+        allowance: 'Oyiga 100 suhbat',
+        cta: 'Bepul boshlash',
         features: [
-          'Cheklanmagan shaxsiy fayllar',
+          '1 ta kanal',
+          'Asosiy bilim bazasi',
+          'Suhbatlar tarixi',
           'Email orqali qo\'llab-quvvatlash',
-          'CSV formatida eksport',
+        ],
+      },
+      {
+        name: 'Boshlang\'ich',
+        tagline: 'Kichik do\'kon va salonlar uchun',
+        priceMonthly: 199000,
+        allowance: 'Oyiga 500 suhbat',
+        cta: 'Tarifni tanlash',
+        features: [
+          '3 ta kanal',
+          'Cheklanmagan bilim bazasi',
+          'Operatorga uzatish',
           'Asosiy tahlil paneli',
-          'Oyiga 1 000 API so\'rovi',
+          '100 dan ortiq til',
         ],
       },
       {
-        name: 'Professional',
-        tagline: 'Frilanser va startaplar uchun',
-        price: '$15',
-        period: '/foydalanuvchi',
+        name: 'Biznes',
+        tagline: 'O\'sayotgan bizneslar uchun',
+        priceMonthly: 499000,
+        allowance: 'Oyiga 2 500 suhbat',
         cta: 'Tarifni tanlash',
         features: [
+          'Barcha kanallar',
           'Boshlang\'ich tarifdagi hammasi +',
-          '5 tagacha foydalanuvchi',
-          'Jamoa bilan ishlash vositalari',
-          'Moslashtiriladigan panellar',
-          'Turli eksport formatlari',
-          'Asosiy maxsus integratsiyalar',
+          '5 tagacha jamoa a\'zosi',
+          'Batafsil hisobotlar',
+          'API va webhook',
         ],
       },
       {
-        name: 'Tashkilot',
-        tagline: 'Tez o\'sayotgan bizneslar uchun',
-        price: '$30',
-        period: '/foydalanuvchi',
-        cta: 'Tarifni tanlash',
+        name: 'Kompaniya',
+        tagline: 'Katta hajmli murojaatlar uchun',
+        priceMonthly: 1190000,
+        allowance: 'Oyiga 10 000 suhbat',
+        cta: 'Bog\'lanish',
         features: [
-          'Professional tarifdagi hammasi +',
-          'Korporativ xavfsizlik to\'plami',
-          'Yagona tizimga kirish (SSO)',
+          'Biznes tarifdagi hammasi +',
+          'Cheklanmagan jamoa a\'zolari',
+          'Ustuvor qo\'llab-quvvatlash',
           'Individual shartnoma shartlari',
-          'Telefon orqali shaxsiy qo\'llab-quvvatlash',
-          'Maxsus integratsiyalarni qo\'llab-quvvatlash',
-          'Talablarga muvofiqlik vositalari',
+          'Yagona tizimga kirish (SSO)',
         ],
       },
     ],
   },
-
   faq: {
     title: 'Ko\'p so\'raladigan savollar',
     items: [
