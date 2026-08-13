@@ -2,39 +2,23 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Bot, Send, Instagram, Zap, Palette, Play, MessageCircle } from 'lucide-react'
 import HeroAgent from './HeroAgent'
+import { useT } from '../i18n'
 
-const agentCards = [
-  {
-    title: 'Create a chatbot for',
-    subtitle: 'customer support questions',
-    icon: Bot,
-    from: 'from-brand-500',
-    to: 'to-brand-700',
-  },
-  {
-    title: 'Automate your Telegram',
-    subtitle: 'auto-reply to every message',
-    icon: Send,
-    from: 'from-indigo-500',
-    to: 'to-violet-700',
-  },
-  {
-    title: 'Improve your Instagram',
-    subtitle: 'reply to DMs & comments',
-    icon: Instagram,
-    from: 'from-fuchsia-500',
-    to: 'to-pink-700',
-  },
-  {
-    title: 'Help with anything',
-    subtitle: 'ask your agent for help',
-    icon: MessageCircle,
-    from: 'from-emerald-500',
-    to: 'to-teal-700',
-  },
+/*
+  Positional, like Features' icon list: AGENT_CARDS[i] pairs with
+  mockup.cards[i] in every locale. Only the icon and gradient live here — the
+  card copy is translated.
+*/
+const AGENT_CARDS = [
+  { icon: Bot, from: 'from-brand-500', to: 'to-brand-700' },
+  { icon: Send, from: 'from-indigo-500', to: 'to-violet-700' },
+  { icon: Instagram, from: 'from-fuchsia-500', to: 'to-pink-700' },
+  { icon: MessageCircle, from: 'from-emerald-500', to: 'to-teal-700' },
 ]
 
 export default function DashboardMockup() {
+  const t = useT()
+  const cards = t('mockup.cards')
   const ref = useRef(null)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
@@ -105,7 +89,7 @@ export default function DashboardMockup() {
               Aylo A<span className="text-brand-500">I</span>
             </div>
             <div className="mt-2 flex flex-col gap-1 text-xs text-white/40">
-              {['Home', 'Agents', 'Knowledge', 'Training', 'Configuration'].map((item, i) => (
+              {t('mockup.sidebar').map((item, i) => (
                 <div
                   key={item}
                   className={`rounded-lg px-3 py-2 ${
@@ -117,10 +101,10 @@ export default function DashboardMockup() {
               ))}
             </div>
             <div className="mt-auto rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 p-3 text-[11px]">
-              <p className="font-semibold">Upgrade your plan</p>
-              <p className="mt-1 text-white/70">Unlock unlimited agents</p>
+              <p className="font-semibold">{t('mockup.upgradeTitle')}</p>
+              <p className="mt-1 text-white/70">{t('mockup.upgradeBody')}</p>
               <button className="mt-2 w-full rounded-md bg-white/15 py-1.5 font-semibold">
-                Upgrade
+                {t('mockup.upgrade')}
               </button>
             </div>
           </div>
@@ -129,22 +113,22 @@ export default function DashboardMockup() {
             <div className="mb-4 flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold">John Agent</p>
-                <p className="text-xs text-white/40">Sales manager on Aylo AI</p>
+                <p className="text-xs text-white/40">{t('mockup.agentRole')}</p>
               </div>
               <div className="hidden items-center gap-2 sm:flex">
                 <span className="rounded-full border border-white/10 px-3 py-1.5 text-[11px] text-white/50">
-                  Subscription balance
+                  {t('mockup.balance')}
                 </span>
                 <span className="rounded-full bg-brand-500 px-3 py-1.5 text-[11px] font-semibold">
-                  Buy Subscription
+                  {t('mockup.buy')}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-              {agentCards.map((card, i) => (
+              {AGENT_CARDS.map((card, i) => (
                 <motion.div
-                  key={card.title}
+                  key={cards[i].title}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + i * 0.1 }}
@@ -152,8 +136,8 @@ export default function DashboardMockup() {
                   className={`relative flex h-24 flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br ${card.from} ${card.to} p-3 text-[11px] font-medium shadow-lg`}
                 >
                   <p className="pr-4 leading-tight">
-                    {card.title}
-                    <span className="block text-white/70">{card.subtitle}</span>
+                    {cards[i].title}
+                    <span className="block text-white/70">{cards[i].subtitle}</span>
                   </p>
                   <card.icon size={16} className="opacity-80" />
                 </motion.div>
@@ -170,17 +154,17 @@ export default function DashboardMockup() {
                   <Play size={16} fill="currentColor" />
                 </motion.div>
                 <span className="absolute bottom-2 left-2 text-[11px] text-white/50">
-                  How to use Aylo.uz?
+                  {t('mockup.howTo')}
                 </span>
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-1 items-center gap-2 rounded-xl bg-white/[0.04] p-2 text-[10px] text-white/60">
                   <Zap size={14} className="text-brand-400" />
-                  Add keywords
+                  {t('mockup.keywords')}
                 </div>
                 <div className="flex flex-1 items-center gap-2 rounded-xl bg-white/[0.04] p-2 text-[10px] text-white/60">
                   <Palette size={14} className="text-fuchsia-400" />
-                  Customize widget
+                  {t('mockup.widget')}
                 </div>
               </div>
             </div>
@@ -203,7 +187,7 @@ export default function DashboardMockup() {
         className="absolute -bottom-6 -left-6 hidden items-center gap-2 rounded-xl border border-white/10 bg-panel/90 px-4 py-3 text-xs shadow-xl backdrop-blur sm:flex"
       >
         <Bot size={16} className="text-brand-400" />
-        Agent replied in 0.4s
+        {t('mockup.replied')}
       </motion.div>
     </motion.div>
   )

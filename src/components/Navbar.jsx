@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sparkles } from 'lucide-react'
+import { useT } from '../i18n'
+import LanguageSwitcher from './ui/LanguageSwitcher'
 
+/*
+  `key` indexes into the `nav` block of the active locale; `href` is the
+  in-page anchor. Keep the anchors in sync with the section `id`s.
+*/
 const links = [
-  { label: 'Features', href: '#features' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Contact', href: '#contact' },
+  { key: 'features', href: '#features' },
+  { key: 'howItWorks', href: '#how-it-works' },
+  { key: 'pricing', href: '#pricing' },
+  { key: 'testimonials', href: '#testimonials' },
+  { key: 'contact', href: '#contact' },
 ]
 
 /*
@@ -21,6 +27,7 @@ const SIGN_IN_URL = 'https://app.aylo.uz/sign-in'
 const SIGN_UP_URL = 'https://app.aylo.uz/sign-up'
 
 export default function Navbar() {
+  const t = useT()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -66,25 +73,34 @@ export default function Navbar() {
           Aylo A<span className="text-brand-500">I</span>
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        {/*
+          The full nav row appears at `lg`, not `md`. Uzbek and Russian labels
+          run noticeably longer than the English ones ("Qanday ishlaydi",
+          "Как это работает" vs "How it works"), and with the language
+          switcher added the row no longer fits inside the container at 768px.
+          Below `lg` everything lives in the mobile menu instead, which has
+          room for any label length.
+        */}
+        <ul className="hidden items-center gap-8 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 className="-my-3.5 inline-block py-3.5 text-sm text-white/70 transition-colors hover:text-white"
               >
-                {link.label}
+                {t(`nav.${link.key}`)}
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-4 lg:flex">
+          <LanguageSwitcher className="-my-1" />
           <a
             href={SIGN_IN_URL}
             className="-my-3.5 py-3.5 text-sm text-white/70 transition-colors hover:text-white"
           >
-            Sign in
+            {t('nav.signIn')}
           </a>
           <motion.a
             whileHover={{ scale: 1.05 }}
@@ -93,14 +109,14 @@ export default function Navbar() {
             className="-my-0.5 flex min-h-[44px] items-center gap-1.5 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400"
           >
             <Sparkles size={14} />
-            Get Started
+            {t('nav.getStarted')}
           </motion.a>
         </div>
 
         <button
           onClick={() => setOpen((o) => !o)}
-          className="-m-2.5 p-2.5 text-white md:hidden"
-          aria-label="Toggle menu"
+          className="-m-2.5 p-2.5 text-white lg:hidden"
+          aria-label={t('nav.toggleMenu')}
         >
           {open ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -112,7 +128,7 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-white/10 bg-ink/95 backdrop-blur-lg md:hidden"
+            className="overflow-hidden border-t border-white/10 bg-ink/95 backdrop-blur-lg lg:hidden"
           >
             <ul className="section-container flex flex-col gap-4 py-6">
               {links.map((link) => (
@@ -122,7 +138,7 @@ export default function Navbar() {
                     onClick={() => setOpen(false)}
                     className="-my-2.5 block py-2.5 text-white/80"
                   >
-                    {link.label}
+                    {t(`nav.${link.key}`)}
                   </a>
                 </li>
               ))}
@@ -134,7 +150,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="-my-2.5 block py-2.5 text-white/80"
                 >
-                  Sign in
+                  {t('nav.signIn')}
                 </a>
               </li>
               <li>
@@ -143,8 +159,13 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="mt-1.5 -mb-0.5 inline-flex min-h-[44px] items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold"
                 >
-                  Get Started
+                  {t('nav.getStarted')}
                 </a>
+              </li>
+              {/* Language choice has to be reachable on phones too, where the
+                  desktop switcher is hidden. */}
+              <li className="mt-2 border-t border-white/10 pt-4">
+                <LanguageSwitcher />
               </li>
             </ul>
           </motion.div>

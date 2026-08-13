@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2, Rocket } from 'lucide-react'
 import Button from './ui/Button'
-
-const points = ['Secure data sharing', 'According to the rules', 'Official Integration']
+import { useT } from '../i18n'
 
 export default function MetaVerified() {
+  const t = useT()
+
   return (
     <section id="meta-verified" className="relative overflow-hidden bg-[#0d0d11] py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_100%_at_80%_50%,rgba(220,38,38,0.35),transparent_65%)]" />
@@ -30,15 +31,11 @@ export default function MetaVerified() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Verified by Meta</h2>
-          <p className="mt-4 max-w-lg text-white/60">
-            Aylo AI is officially approved by Meta and provides reliable and secure integration
-            with Facebook and Instagram platforms. This confirmation indicates that we maintain a
-            high level of safety and compliance standards.
-          </p>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">{t('metaVerified.title')}</h2>
+          <p className="mt-4 max-w-lg text-white/60">{t('metaVerified.body')}</p>
 
           <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
-            {points.map((p) => (
+            {t('metaVerified.points').map((p) => (
               <li key={p} className="flex items-center gap-2 text-sm text-white/80">
                 <CheckCircle2 size={16} className="text-brand-500" />
                 {p}
@@ -47,7 +44,7 @@ export default function MetaVerified() {
           </ul>
 
           <Button href="#pricing" icon={Rocket} className="mt-8">
-            Create a Agent
+            {t('metaVerified.cta')}
           </Button>
         </motion.div>
 

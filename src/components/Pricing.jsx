@@ -1,66 +1,25 @@
 import SectionHeading from './ui/SectionHeading'
 import PricingCard from './ui/PricingCard'
+import { useT } from '../i18n'
 
-const plans = [
-  {
-    name: 'Starter',
-    tagline: 'Ideal for small projects',
-    price: 'Free',
-    period: '',
-    features: [
-      'Unlimited personal files',
-      'Email support',
-      'CSV data export',
-      'Basic analytics dashboard',
-      '1,000 API calls per month',
-    ],
-    cta: 'Try for free',
-    popular: false,
-  },
-  {
-    name: 'Professional',
-    tagline: 'For freelancers and startups',
-    price: '$15',
-    period: '/per user',
-    features: [
-      'All starter features +',
-      'Up to 5 user accounts',
-      'Team collaboration tools',
-      'Custom dashboards',
-      'Multiple data export formats',
-      'Basic custom integrations',
-    ],
-    cta: 'Select plan',
-    popular: true,
-  },
-  {
-    name: 'Organization',
-    tagline: 'For fast-growing businesses',
-    price: '$30',
-    period: '/per user',
-    features: [
-      'All professional features +',
-      'Enterprise security suite',
-      'Single Sign-On (SSO)',
-      'Custom contract terms',
-      'Dedicated phone support',
-      'Custom integration support',
-      'Compliance tools',
-    ],
-    cta: 'Select plan',
-    popular: false,
-  },
-]
+/*
+  Which tier is highlighted is a layout decision, not copy, so it lives here
+  rather than in the locale files — otherwise three files could disagree about
+  which plan is "most popular". Index 1 is the middle tier.
+*/
+const FEATURED_PLAN_INDEX = 1
 
 export default function Pricing() {
+  const t = useT()
+
   return (
     <section id="pricing" className="relative overflow-hidden bg-white py-28 text-ink">
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-brand-100 via-brand-50/60 to-transparent" />
 
       <div className="section-container relative">
         <SectionHeading
-          title="Regular, use-based pricing"
-          subtitle="Start for free, then pay only for using"
+          title={t('pricing.title')}
+          subtitle={t('pricing.subtitle')}
           tone="light"
         />
 
@@ -72,7 +31,7 @@ export default function Pricing() {
           worse by pushing its neighbours narrower still.
         */}
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
-          {plans.map((plan, i) => (
+          {t('pricing.plans').map((plan, i) => (
             <PricingCard
               key={plan.name}
               name={plan.name}
@@ -81,7 +40,8 @@ export default function Pricing() {
               period={plan.period}
               features={plan.features}
               cta={plan.cta}
-              featured={plan.popular}
+              badgeLabel={t('pricing.popularBadge')}
+              featured={i === FEATURED_PLAN_INDEX}
               index={i}
             />
           ))}

@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion'
 import { Rocket, Bot } from 'lucide-react'
 import Button from './ui/Button'
+import { useT } from '../i18n'
 
 export default function CTABanner() {
+  const t = useT()
+
   return (
     <section className="bg-white px-6 pb-24 text-ink lg:px-8">
       <motion.div
@@ -31,11 +34,8 @@ export default function CTABanner() {
           <Bot size={26} className="text-brand-400" />
         </motion.div>
 
-        <h2 className="relative text-3xl font-extrabold sm:text-4xl">Create Your Agent</h2>
-        <p className="relative mx-auto mt-3 max-w-md text-white/60">
-          Increase sales, free up managers for more complex tasks, and build customer trust
-          through quick responses.
-        </p>
+        <h2 className="relative text-3xl font-extrabold sm:text-4xl">{t('cta.title')}</h2>
+        <p className="relative mx-auto mt-3 max-w-md text-white/60">{t('cta.subtitle')}</p>
 
         <Button
           href="#pricing"
@@ -43,7 +43,7 @@ export default function CTABanner() {
           shadow="lg"
           className="relative mt-8"
         >
-          Create a Agent
+          {t('cta.button')}
         </Button>
       </motion.div>
     </section>

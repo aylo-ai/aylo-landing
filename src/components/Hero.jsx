@@ -3,8 +3,11 @@ import { Rocket, PlayCircle, Sparkles } from 'lucide-react'
 import DashboardMockup from './DashboardMockup'
 import Button from './ui/Button'
 import Badge from './ui/Badge'
+import { useT } from '../i18n'
 
 export default function Hero() {
+  const t = useT()
+
   return (
     <section
       className="relative overflow-hidden pb-24 pt-0"
@@ -45,7 +48,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="mb-6"
         >
-          100+ companies already automating sales with Aylo AI
+          {t('hero.badge')}
         </Badge>
 
         <motion.h1
@@ -54,9 +57,9 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
         >
-          Build AI Agents That
+          {t('hero.titleLead')}
           <br />
-          <span className="text-gradient">Sell for You</span>
+          <span className="text-gradient">{t('hero.titleAccent')}</span>
         </motion.h1>
 
         <motion.p
@@ -65,8 +68,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mx-auto mt-6 max-w-xl text-base text-white/60 sm:text-lg"
         >
-          Aylo AI lets you create powerful AI agents to engage with your customers 24/7 on social
-          media. Boost sales, automate conversations, and grow your business effortlessly.
+          {t('hero.subtitle')}
         </motion.p>
 
         <motion.div
@@ -76,10 +78,10 @@ export default function Hero() {
           className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <Button href="#pricing" icon={Rocket}>
-            Create a Agent
+            {t('hero.ctaPrimary')}
           </Button>
           <Button href="#how-it-works" icon={PlayCircle} variant="secondary">
-            See How it Works
+            {t('hero.ctaSecondary')}
           </Button>
         </motion.div>
 
