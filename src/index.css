@@ -10,6 +10,19 @@
 
 html {
   scroll-behavior: smooth;
+  /*
+    Suppress the grey flash Android Chrome and iOS Safari paint over a tapped
+    link. Every interactive element here has its own press feedback already
+    (framer-motion `whileTap` scale, or a hover/active color), so the native
+    highlight only adds a rectangle that ignores the element's border radius.
+
+    Deliberately NOT adding `scroll-padding-top` here for the fixed navbar:
+    every anchor target is a section with `py-24`/`py-28`, so the heading
+    already clears the 64-80px header on its own. Adding scroll padding would
+    push each landing down by that much again and open a dead gap above the
+    heading.
+  */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {

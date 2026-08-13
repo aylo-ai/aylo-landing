@@ -18,8 +18,15 @@ function validate(form) {
   return errors
 }
 
+/*
+  `text-base sm:text-sm` is deliberate, not sloppy: iOS Safari zooms the whole
+  page in when a focused input's font-size is under 16px, and it does not zoom
+  back out afterwards — the visitor is left on a horizontally-scrolled page
+  mid-form. 16px on phones prevents that; the 14px size returns from `sm:` up,
+  where no browser does this.
+*/
 const fieldBase =
-  'rounded-xl border bg-[#f7f7f8] px-4 py-3 text-sm outline-none transition focus:ring-2'
+  'rounded-xl border bg-[#f7f7f8] px-4 py-3 text-base outline-none transition focus:ring-2 sm:text-sm'
 const fieldOk = 'border-black/10 focus:border-brand-500 focus:ring-brand-500/20'
 const fieldBad = 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
 
