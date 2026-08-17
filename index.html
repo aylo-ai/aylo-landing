@@ -40,9 +40,17 @@
 
     <!--
       Structured data. Deliberately limited to facts that are true today: the
-      organisation, the product, and the four published tiers with their real
-      som prices (mirroring `pricing.plans` in the locale files — if a price
-      changes there, change it here too).
+      organisation, the product, and the published tiers with their real som
+      prices.
+
+      The tiers below are a hand-kept snapshot of the backend's
+      `PricingPackage` rows — the same rows the pricing section fetches at
+      runtime from `/api/v1/payment/pricing-packages/`. Crawlers read this
+      served HTML and never run the fetch, so the two cannot be collapsed into
+      one source: whenever a package is added, renamed or repriced in the
+      backend, update this block to match (`price` here is the amount actually
+      charged, i.e. `discount_price` when one is set). `npm run check:pricing`
+      compares the two and fails if they have drifted.
 
       There is intentionally NO aggregateRating and NO review block. Both are
       tempting because they render star ratings in search results, but the
@@ -86,14 +94,14 @@
               "@type": "AggregateOffer",
               "priceCurrency": "UZS",
               "lowPrice": "0",
-              "highPrice": "1190000",
-              "offerCount": "4",
+              "highPrice": "699000",
+              "offerCount": "3",
               "url": "https://aylo.uz/#pricing",
               "offers": [
                 {
                   "@type": "Offer",
                   "name": "Free",
-                  "description": "100 conversations per month, 1 channel. No card required.",
+                  "description": "100 conversations per month. One AI agent, website widget, knowledge base. No card required.",
                   "price": "0",
                   "priceCurrency": "UZS",
                   "url": "https://aylo.uz/#pricing",
@@ -101,15 +109,15 @@
                 },
                 {
                   "@type": "Offer",
-                  "name": "Starter",
-                  "description": "500 conversations per month, 3 channels.",
-                  "price": "199000",
+                  "name": "Basic",
+                  "description": "2000 conversations per month. Telegram and Instagram, lead management and export, follow-up automation.",
+                  "price": "239000",
                   "priceCurrency": "UZS",
                   "url": "https://aylo.uz/#pricing",
                   "availability": "https://schema.org/InStock",
                   "priceSpecification": {
                     "@type": "UnitPriceSpecification",
-                    "price": "199000",
+                    "price": "239000",
                     "priceCurrency": "UZS",
                     "valueAddedTaxIncluded": false,
                     "unitCode": "MON",
@@ -118,32 +126,15 @@
                 },
                 {
                   "@type": "Offer",
-                  "name": "Business",
-                  "description": "2500 conversations per month, all channels, up to 5 team members.",
-                  "price": "499000",
+                  "name": "Pro",
+                  "description": "10000 conversations per month. Team members, amoCRM and Billz integrations, broadcasts, priority support.",
+                  "price": "699000",
                   "priceCurrency": "UZS",
                   "url": "https://aylo.uz/#pricing",
                   "availability": "https://schema.org/InStock",
                   "priceSpecification": {
                     "@type": "UnitPriceSpecification",
-                    "price": "499000",
-                    "priceCurrency": "UZS",
-                    "valueAddedTaxIncluded": false,
-                    "unitCode": "MON",
-                    "unitText": "month"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "name": "Company",
-                  "description": "10000 conversations per month, unlimited team members, priority support.",
-                  "price": "1190000",
-                  "priceCurrency": "UZS",
-                  "url": "https://aylo.uz/#pricing",
-                  "availability": "https://schema.org/InStock",
-                  "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "1190000",
+                    "price": "699000",
                     "priceCurrency": "UZS",
                     "valueAddedTaxIncluded": false,
                     "unitCode": "MON",

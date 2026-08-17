@@ -15,12 +15,17 @@ import Button from './Button'
 
   `price` arrives already formatted — the parent owns currency formatting so
   every card renders through one Intl.NumberFormat for the active language.
+  `originalPrice` is the pre-discount list price, set only when the backend
+  package carries a `discount_price`; it renders struck through beside the
+  price actually charged.
 */
 
 export default function PricingCard({
   name,
   tagline,
   price,
+  originalPrice,
+  originalPriceLabel = 'Regular price',
   period,
   allowance,
   footnote,
@@ -31,6 +36,16 @@ export default function PricingCard({
   featured = false,
   index = 0,
 }) {
+  /*
+    The scroll entrance is the page's standard `whileInView` + `once`, even
+    though these cards now mount late (when the pricing fetch resolves) rather
+    than with the page. Verified in a real browser: the observer arms for nodes
+    added after load, so a card that mounts below the fold still fades in on
+    scroll. Headless Chrome under `--virtual-time-budget` does NOT show this —
+    it freezes the animation loop after load and leaves the cards at
+    `opacity: 0`. That is a screenshot artifact, not a bug; check with a real
+    browser (or CDP with real time) before "fixing" it.
+  */
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -57,6 +72,18 @@ export default function PricingCard({
       <div className="mt-5 flex flex-wrap items-baseline gap-x-1.5">
         <span className="text-2xl font-extrabold tabular-nums sm:text-3xl">{price}</span>
         {period && <span className="text-sm text-ink/50">{period}</span>}
+        {/*
+          `<s>` rather than a line-through class: the strikethrough carries the
+          meaning "no longer the price", so it belongs in the markup. The
+          visually-hidden label keeps that meaning for screen readers, which
+          announce neither the element nor the decoration by default.
+        */}
+        {originalPrice && (
+          <s className="text-sm tabular-nums text-ink/40">
+            <span className="sr-only">{originalPriceLabel} </span>
+            {originalPrice}
+          </s>
+        )}
       </div>
 
       {/* What the money actually buys — the unit this tier is metered on. */}
