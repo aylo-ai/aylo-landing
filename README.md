@@ -28,7 +28,7 @@ Rendered in order from `src/App.jsx`:
 | `Testimonials` | Star-rated review cards. |
 | `MetaVerified` | Meta approval banner with twinkling particles. |
 | `Integrations` | Instagram / Facebook / Website / Telegram channel icons. |
-| `Pricing` | Three tiers; the Professional plan is scaled up and highlighted. |
+| `Pricing` | Tiers fetched live from the backend; the tier the API flags `is_popular` is scaled up and highlighted. |
 | `FAQ` | Accordion with animated height. |
 | `Contact` | Form beside an animated CSS robot mascot (`RobotMascot`). |
 | `CTABanner` | Closing dark call-to-action panel. |
@@ -41,6 +41,7 @@ Copy `.env.example` to `.env.local` and fill in:
 | Variable | Purpose |
 |---|---|
 | `VITE_CONTACT_ENDPOINT` | POST endpoint receiving contact form submissions as JSON (`{ name, email, message }`). Until set, the form tells visitors delivery isn't configured rather than falsely reporting success. |
+| `VITE_API_BASE_URL` | Base URL of the Aylo API, used by the pricing section. Defaults to `https://api.aylo.uz`; set it only to point a local or staging build elsewhere. |
 
 ## Deployment
 
@@ -68,7 +69,7 @@ These are visual stand-ins, not wired-up functionality:
 
 - **The contact form has no endpoint configured.** `Contact.jsx` is fully wired — it validates and POSTs to `VITE_CONTACT_ENDPOINT` — but until that variable is set the form tells visitors their message was not sent. Set the repo secret to switch it on.
 - **Company logos** (uzum, click, PayMe) are lucide icons plus text, not real brand marks.
-- **Testimonials, FAQ copy, and pricing features** are from the design mockups — replace with real content.
+- **Testimonials and FAQ copy** are from the design mockups — replace with real content. (Pricing is no longer among them: plans, prices and feature bullets come from the backend at runtime.)
 - All CTA links are in-page anchors (`#pricing`, `#contact`) rather than real routes.
 
 ## Theming

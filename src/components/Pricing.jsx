@@ -1,66 +1,140 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ShieldCheck } from 'lucide-react'
+import { RefreshCw, ShieldCheck } from 'lucide-react'
 import SectionHeading from './ui/SectionHeading'
 import PricingCard from './ui/PricingCard'
+import { effectivePrice, fetchPricingPlans, isFreePlan } from '../lib/pricingApi'
 import { useI18n } from '../i18n'
 
 /*
   ============================================================================
-  PRICING MODEL — derived from market research, August 2026. Adjustable.
+  PRICING — rendered from the backend, not from the locale files.
   ----------------------------------------------------------------------------
-  Priced in som, as flat monthly tiers metered on CONVERSATIONS.
+  Every number on these cards comes from `GET /payment/pricing-packages/`
+  (see src/lib/pricingApi.js for why). What stays in the locales is the copy
+  around the numbers: the heading, the allowance and period templates, the CTA
+  labels, the footnotes. Plan names, descriptions and feature bullets are
+  backend fields — they are what the sign-up flow shows, so they must match.
 
-  Why som: the audience is Uzbek small business, and the direct local
-  competitor (Zukko.AI) quotes entirely in som. Asking a Tashkent shop owner to
-  reason in dollars adds friction no feature can win back.
+  Consequences worth knowing:
 
-  Why conversations, not seats: the previous model charged $15-30 per USER,
-  which ignored the actual cost driver. A one-person Instagram shop handling
-  5,000 DMs paid for a single seat. Nobody in this category prices per seat —
-  ManyChat and Chatfuel meter contacts, Intercom and Zendesk meter resolutions.
+  - The tier count is whatever the API returns, so the grid picks its column
+    count from `plans.length` (Tailwind can't see a dynamically built class
+    name, hence the lookup table rather than string interpolation).
+  - Which tier is featured is the backend's `is_popular` flag, not a constant
+    in this file.
+  - There is no annual billing. Every package is `duration_days: 30` and the
+    only discount the backend models is `discount_price`, a promo price on the
+    monthly figure. The monthly/annual switch that used to sit here applied a
+    20% discount invented on the client — a price nobody could actually buy.
 
-  Why conversations, not resolutions: per-resolution billing (Intercom $0.99,
-  Zendesk $1.50-2.00) means the bill rises as the agent gets better, which
-  buyers have learned to distrust. A conversation allowance is predictable —
-  the customer can forecast the bill from volume they already know.
-
-  Anchors used:
-    - Zukko.AI: 699,000 / 1,190,000 / 1,990,000 UZS monthly (-20% annual)
-    - ManyChat: $17 / $39 / $99 monthly, AI add-on +$29
-    - Chatfuel: from $39, no free plan since 2026
-    - USD/UZS ~ 11,900-12,000 (Aug 2026)
-    - Average salary: 7,091,100 UZS national, 12,013,900 UZS Tashkent
-
-  The result undercuts Zukko at every tier while landing near ManyChat's
-  dollar equivalents, and keeps a free tier at a moment when both global
-  incumbents have gutted theirs (ManyChat cut its free plan to 25 contacts in
-  March 2026).
-
-  NOT verified: unit economics. Whether 199,000 UZS for 500 conversations
-  clears inference cost depends on Aylo's model choice and average turns per
-  conversation — numbers I do not have. Check the margin before launch.
+  A failed request renders an error with a retry, never a fallback price: a
+  stale hardcoded number is exactly the failure mode this change removes.
   ============================================================================
 */
 
-// Which tier is highlighted is a layout decision, not copy, so it lives here
-// rather than in the locale files — otherwise three files could disagree.
-const FEATURED_PLAN_INDEX = 2
+// Request budget. Matches the contact form's posture — a slow API should not
+// leave skeletons on screen indefinitely.
+const TIMEOUT_MS = 10000
 
-// Discount applied to the monthly figure when billed annually. Matches the
-// local competitor's annual discount so the comparison is like for like.
-const ANNUAL_DISCOUNT = 0.2
+// Column counts per tier count. Written out because Tailwind scans source for
+// complete class names; `lg:grid-cols-${n}` would never be generated.
+const GRID_BY_COUNT = {
+  1: 'max-w-sm grid-cols-1',
+  2: 'max-w-3xl grid-cols-1 sm:grid-cols-2',
+  3: 'max-w-5xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+  4: 'max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
+}
+
+const LOCALES = { uz: 'uz-UZ', ru: 'ru-RU', en: 'en-US' }
+
+function PlanSkeleton({ index }) {
+  return (
+    <div
+      className="flex flex-col rounded-2xl border border-black/5 bg-white p-7 shadow-sm"
+      style={{ animationDelay: `${index * 120}ms` }}
+    >
+      <div className="animate-pulse">
+        <div className="h-5 w-24 rounded bg-black/10" />
+        <div className="mt-3 h-3 w-36 rounded bg-black/5" />
+        <div className="mt-6 h-8 w-32 rounded bg-black/10" />
+        <div className="mt-3 h-4 w-28 rounded bg-brand-500/20" />
+        <div className="mt-8 space-y-3">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="h-3 w-full rounded bg-black/5" />
+          ))}
+        </div>
+        <div className="mt-8 h-11 w-full rounded-full bg-black/10" />
+      </div>
+    </div>
+  )
+}
 
 export default function Pricing() {
   const { lang, t } = useI18n()
-  const [annual, setAnnual] = useState(false)
+  const [plans, setPlans] = useState([])
+  const [status, setStatus] = useState('loading') // loading | ready | error
+  // Bumped by the retry button to re-run the effect.
+  const [attempt, setAttempt] = useState(0)
 
-  const nf = useMemo(
-    () => new Intl.NumberFormat(lang === 'uz' ? 'uz-UZ' : lang === 'ru' ? 'ru-RU' : 'en-US'),
-    [lang],
+  const nf = useMemo(() => new Intl.NumberFormat(LOCALES[lang] ?? LOCALES.uz), [lang])
+
+  /*
+    Refetches on language change so translated plan copy arrives with the
+    switch. The backend's `name`/`description` are modeltranslation fields; the
+    rows are Uzbek-only today, so today this returns identical data per
+    language and simply starts working when translations are filled in.
+  */
+  useEffect(() => {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+    let active = true
+
+    setStatus((current) => (current === 'ready' ? current : 'loading'))
+
+    fetchPricingPlans(lang, controller.signal)
+      .then((result) => {
+        if (!active) return
+        setPlans(result)
+        // An empty list is not a usable pricing section — treat it as a
+        // failure rather than rendering an empty grid under the heading.
+        setStatus(result.length > 0 ? 'ready' : 'error')
+      })
+      .catch(() => {
+        if (!active) return
+        setPlans([])
+        setStatus('error')
+      })
+      .finally(() => clearTimeout(timer))
+
+    return () => {
+      active = false
+      clearTimeout(timer)
+      controller.abort()
+    }
+  }, [lang, attempt])
+
+  const retry = useCallback(() => {
+    setStatus('loading')
+    setAttempt((n) => n + 1)
+  }, [])
+
+  /* Currency label: the locale spells out som, anything else shows its code. */
+  const currencyLabel = useCallback(
+    (code) => (code === 'uzs' ? t('pricing.currency') : ` ${code.toUpperCase()}`),
+    [t],
   )
 
-  const plans = t('pricing.plans')
+  /*
+    Billing period. Every package is 30 days today, but the field exists and a
+    365-day package would otherwise be advertised as monthly.
+  */
+  const periodLabel = useCallback(
+    (days) => (days === 30 ? t('pricing.perMonth') : t('pricing.perDays', { count: nf.format(days) })),
+    [nf, t],
+  )
+
+  const gridClass = GRID_BY_COUNT[plans.length] ?? GRID_BY_COUNT[4]
 
   return (
     <section id="pricing" className="relative overflow-hidden bg-white py-28 text-ink">
@@ -71,80 +145,115 @@ export default function Pricing() {
           title={t('pricing.title')}
           subtitle={t('pricing.subtitle')}
           tone="light"
-          className="mx-auto mb-10 max-w-2xl text-center"
+          className="mx-auto mb-12 max-w-2xl text-center"
         />
 
         {/*
-          Billing switch. Rendered as two real buttons in a group rather than a
-          checkbox styled to look like a switch: the state is a choice between
-          two named options, screen readers get `aria-pressed` on each, and both
-          hit a 44px target without extra markup.
+          `aria-busy` + `aria-live` so a screen reader hears the prices arrive
+          instead of finding a silently swapped grid. `polite` — this is not an
+          interruption, the visitor is reading the heading.
         */}
-        <div
-          role="group"
-          aria-label={t('pricing.billingLabel')}
-          className="mx-auto mb-12 inline-flex w-full max-w-xs items-center justify-center rounded-full border border-black/10 bg-[#f7f7f8] p-1 sm:w-auto"
-        >
-          {[false, true].map((isAnnual) => (
-            <button
-              key={String(isAnnual)}
-              type="button"
-              onClick={() => setAnnual(isAnnual)}
-              aria-pressed={annual === isAnnual}
-              className={`flex min-h-[44px] flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 text-sm font-semibold transition-colors sm:flex-none ${
-                annual === isAnnual
-                  ? 'bg-ink text-white shadow-sm'
-                  : 'text-ink/60 hover:text-ink'
-              }`}
-            >
-              {isAnnual ? t('pricing.annual') : t('pricing.monthly')}
-              {isAnnual && (
-                <span
-                  className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
-                    annual ? 'bg-brand-500 text-white' : 'bg-brand-500/15 text-brand-700'
-                  }`}
+        <div aria-busy={status === 'loading'} aria-live="polite">
+          {status === 'loading' && (
+            <div className={`mx-auto grid gap-6 ${GRID_BY_COUNT[3]}`}>
+              <span className="sr-only">{t('pricing.loading')}</span>
+              {[0, 1, 2].map((i) => (
+                <PlanSkeleton key={i} index={i} />
+              ))}
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="mx-auto max-w-md rounded-2xl border border-black/10 bg-white p-8 text-center shadow-sm">
+              <p className="text-sm font-semibold">{t('pricing.errorTitle')}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink/60">{t('pricing.errorBody')}</p>
+              <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={retry}
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-white transition-colors hover:bg-ink/80"
                 >
-                  {t('pricing.annualSave')}
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
+                  <RefreshCw size={15} />
+                  {t('pricing.retry')}
+                </button>
+                <a
+                  href="#contact"
+                  className="inline-flex min-h-[44px] items-center rounded-full border border-black/10 px-6 text-sm font-semibold text-ink/70 transition-colors hover:text-ink"
+                >
+                  {t('pricing.errorContact')}
+                </a>
+              </div>
+            </div>
+          )}
 
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {plans.map((plan, i) => {
-            const monthly = plan.priceMonthly
-            const effective = annual ? Math.round(monthly * (1 - ANNUAL_DISCOUNT)) : monthly
-            const isFree = monthly === 0
+          {status === 'ready' && (
+            <div className={`mx-auto grid gap-6 ${gridClass}`}>
+              {plans.map((plan, i) => {
+                const free = isFreePlan(plan)
+                const suffix = `${currencyLabel(plan.currency)}${periodLabel(plan.durationDays)}`
 
-            return (
-              <PricingCard
-                key={plan.name}
-                name={plan.name}
-                tagline={plan.tagline}
-                price={isFree ? t('pricing.freePrice') : nf.format(effective)}
-                period={isFree ? '' : `${t('pricing.currency')}${t('pricing.perMonth')}`}
-                allowance={plan.allowance}
                 /*
-                  On the annual view, say what the commitment is. Showing a
-                  discounted monthly figure without naming the billing period
-                  is the oldest dark pattern in SaaS pricing.
+                  Three kinds of card, and only the middle one shows a number:
+
+                  - custom  — the "for companies" tier. Its stored price is 0
+                    because sales agrees it per customer, so it shows a
+                    "negotiated" label and a contact CTA. Never a price, and
+                    never the free treatment.
+                  - free    — genuinely costs nothing.
+                  - priced  — a som figure per billing period.
+
+                  `request_count` is 0 on a custom package too, so the
+                  allowance line is dropped rather than promising "0
+                  conversations a month".
                 */
-                footnote={
-                  isFree
-                    ? t('pricing.noCard')
-                    : annual
-                      ? t('pricing.billedAnnually')
-                      : t('pricing.cancelAnytime')
-                }
-                features={plan.features}
-                cta={plan.cta}
-                badgeLabel={t('pricing.popularBadge')}
-                featured={i === FEATURED_PLAN_INDEX}
-                index={i}
-              />
-            )
-          })}
+                const price = plan.isCustom
+                  ? t('pricing.customPrice')
+                  : free
+                    ? t('pricing.freePrice')
+                    : nf.format(effectivePrice(plan))
+
+                return (
+                  <PricingCard
+                    key={plan.id}
+                    name={plan.name}
+                    tagline={plan.description}
+                    price={price}
+                    /* Struck-through list price, only when a promo is live. */
+                    originalPrice={
+                      !plan.isCustom && plan.discountPrice != null
+                        ? nf.format(plan.price)
+                        : undefined
+                    }
+                    originalPriceLabel={t('pricing.wasPrice')}
+                    period={free || plan.isCustom ? '' : suffix}
+                    allowance={
+                      plan.requestCount > 0
+                        ? t('pricing.allowance', { count: nf.format(plan.requestCount) })
+                        : ''
+                    }
+                    footnote={
+                      plan.isCustom
+                        ? t('pricing.customFootnote')
+                        : free
+                          ? t('pricing.noCard')
+                          : t('pricing.cancelAnytime')
+                    }
+                    features={plan.features.map((f) => f.name)}
+                    cta={
+                      plan.isCustom
+                        ? t('pricing.ctaContact')
+                        : free
+                          ? t('pricing.ctaFree')
+                          : t('pricing.ctaSelect')
+                    }
+                    badgeLabel={t('pricing.popularBadge')}
+                    featured={plan.isPopular}
+                    index={i}
+                  />
+                )
+              })}
+            </div>
+          )}
         </div>
 
         <motion.p

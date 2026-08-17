@@ -9,16 +9,21 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # production build to dist/
 npm run preview  # serve the production build
+
+npm run check:pricing  # diff index.html's schema.org Offers against the live API
 ```
 
 There is no test suite, linter, or type checker configured. `npm run build` is
-the only automated check — it is what CI runs, so a clean build is the bar for
-"it works". Verify visual/behavioral changes in a browser.
+the only check CI runs, so a clean build is the bar for "it works". Verify
+visual/behavioral changes in a browser. `check:pricing` is a manual guard, not
+part of CI — it exits 2 (rather than failing) when the API is unreachable.
 
 ## Architecture
 
 A single-page marketing site: React 18 + Vite + Tailwind + framer-motion +
-lucide-react. No router, no data layer, no backend. `src/main.jsx` mounts
+lucide-react. No router and no state library. The only server data on the page
+is the pricing section, which fetches its plans from the Aylo API (see
+"Content status"); everything else is static copy. `src/main.jsx` mounts
 `App.jsx`, which renders every section in a fixed vertical order — that JSX
 list *is* the page order, so reordering sections means reordering it.
 
@@ -64,14 +69,14 @@ pluralisation and no runtime catalogue loading to justify one.
   is the default AND the fallback**, so it must always be complete — a key
   missing from `ru`/`en` silently renders Uzbek.
 - Components call `useT()` and then `t('section.key')`. `t` returns whatever is
-  at the path, so arrays (`t('features.items')`, `t('pricing.plans')`) work the
+  at the path, so arrays (`t('features.items')`, `t('mockup.cards')`) work the
   same as strings. `t(key, { code })` interpolates `{code}`-style placeholders.
 - Icons, gradients and layout flags stay in the components, paired
   **positionally** with the locale arrays: `FEATURE_ICONS[i]` ↔
   `features.items[i]`, `AGENT_CARDS[i]` ↔ `mockup.cards[i]`. Adding an entry
   means adding it to the component array *and* all three locales, in the same
-  position. `Pricing`'s `FEATURED_PLAN_INDEX` is likewise code, not copy, so the
-  three files cannot disagree about which tier is highlighted.
+  position. (`Pricing` no longer participates in this: its cards are built from
+  the API response, so there is no positional array to keep in step.)
 - The choice persists in `localStorage` under `aylo-lang`. The browser language
   is deliberately **not** sniffed — everyone lands on Uzbek unless they have
   chosen otherwise. Add a `navigator.languages` branch to `readStoredLang` to
@@ -116,22 +121,49 @@ Testimonials and FAQ copy are placeholders taken from the mockups in `design/`.
 Treat them as replaceable — `Testimonials.jsx` carries a pre-launch banner
 explaining what must be replaced and in which locales.
 
-**Pricing is no longer placeholder.** The tiers in each locale's `pricing.plans`
-were derived from market research (Zukko.AI, ManyChat, Chatfuel, USD/UZS rate,
-Uzbek salary data) — the derivation and its anchors are documented in the header
-comment of `Pricing.jsx`. Prices are in som and metered on conversations, not
-seats. What is *not* verified is unit economics: whether 199,000 UZS for 500
-conversations clears inference cost depends on the model and average turns per
-conversation. Check the margin before launch.
+**Pricing is not content — it is data.** No price, plan name, allowance or
+feature bullet lives in this repo. `Pricing.jsx` fetches them at runtime from
+`GET {VITE_API_BASE_URL}/api/v1/payment/pricing-packages/` via
+`src/lib/pricingApi.js`; the endpoint is public and CORS-allowed for
+`https://aylo.uz`. Those are the same `PricingPackage` rows the sign-up flow in
+app.aylo.uz offers and Payme bills against, so a number typed here could
+disagree with what a customer is actually charged — it already did, when this
+page advertised four tiers from 199,000 while the backend held three from
+299,000.
 
-The four tier prices are duplicated in one other place: the `application/ld+json`
-block in `index.html`, which publishes them as schema.org `Offer`s in UZS for
-search engines. Change a price in the locales and you must change it there too.
-That block deliberately carries no `aggregateRating` or `review` — there are no
-real reviews yet, and inventing them would be feeding fabricated data to search
-engines. `public/robots.txt` and `public/sitemap.xml` are static and copied to
-the webroot by the build; the sitemap lists the single `https://aylo.uz/` URL
-because the language lives in `localStorage`, not in the URL.
+What that means when editing:
+
+- The locale `pricing` blocks hold only the copy *around* the numbers (heading,
+  `allowance`/`perDays` templates, CTA labels, footnotes, error strings). To
+  change a price, a tier, or a feature bullet, change the backend row — or ask
+  someone who can — never this repo.
+- Tier count, ordering (cheapest first) and which card is featured all come
+  from the response (`is_popular`), so `Pricing.jsx` has no `FEATURED_PLAN_INDEX`
+  and its grid picks column classes from a lookup table keyed on plan count.
+- There is **no annual billing**: every package is `duration_days: 30` and the
+  only discount the backend models is `discount_price`, a promo on the monthly
+  figure (rendered as a struck-through list price). The monthly/annual switch
+  that used to sit here applied a 20% discount invented on the client — a price
+  no one could buy. Don't reintroduce it without an annual package to back it.
+- A failed fetch renders an error with a retry, never a fallback price. Same
+  principle as the contact form's `unconfigured` state: do not "simplify" it
+  into showing stale hardcoded tiers.
+- Plan names, descriptions and feature names are modeltranslation fields on the
+  backend, requested with `Accept-Language`. The rows are currently **Uzbek
+  only**, so ru/en visitors see Uzbek plan copy until the backend rows are
+  translated. The page needs no change when they are.
+
+The one remaining hand-copy of backend prices is the `application/ld+json`
+block in `index.html`, which publishes them as schema.org `Offer`s in UZS.
+Crawlers read the served HTML and never run the fetch, so it cannot be merged
+into the runtime source. `npm run check:pricing` diffs that block against the
+live API and fails if they have drifted — run it after any backend price
+change. That block deliberately carries no `aggregateRating` or `review` —
+there are no real reviews yet, and inventing them would be feeding fabricated
+data to search engines. `public/robots.txt` and `public/sitemap.xml` are static
+and copied to the webroot by the build; the sitemap lists the single
+`https://aylo.uz/` URL because the language lives in `localStorage`, not in the
+URL.
 
 `LogoMarquee` used to show Uzum, Click and PayMe marks under "100+ companies
 already using Aylo AI". Those are real Uzbek payment companies and none is a
